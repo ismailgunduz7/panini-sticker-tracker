@@ -6,12 +6,31 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct PaniniStickerTrackerApp: App {
+    private let container: ModelContainer
+    @State private var store: CollectionStore
+
+    init() {
+        do {
+            let container = try ModelContainer(for: StickerEntry.self)
+            self.container = container
+            _store = State(initialValue: CollectionStore(
+                repository: LocalCollectionRepository(context: container.mainContext)
+            ))
+        } catch {
+            fatalError("Failed to set up persistence: \(error)")
+        }
+    }
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootTabView()
+                .environment(store)
+                .task { await store.load() }
         }
+        .modelContainer(container)
     }
 }
