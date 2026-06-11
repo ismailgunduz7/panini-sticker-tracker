@@ -62,16 +62,30 @@ struct DuplicatesView: View {
                     ForEach(groups) { group in
                         Section {
                             ForEach(group.items) { item in
-                                HStack {
+                                HStack(spacing: 16) {
                                     Text(verbatim: item.code)
                                         .font(.subheadline.weight(.semibold).monospacedDigit())
                                     Spacer()
+                                    Button {
+                                        adjust(item.code, by: -1)
+                                    } label: {
+                                        Image(systemName: item.count == 1 ? "trash.fill" : "minus.circle.fill")
+                                            .font(.title3)
+                                    }
+                                    .buttonStyle(.borderless)
+                                    .tint(item.count == 1 ? .red : .secondary)
+
                                     Text(verbatim: "×\(item.count)")
-                                        .font(.caption.weight(.bold))
-                                        .padding(.horizontal, 7)
-                                        .padding(.vertical, 2)
-                                        .background(.orange, in: Capsule())
-                                        .foregroundStyle(.white)
+                                        .font(.subheadline.weight(.bold).monospacedDigit())
+                                        .frame(minWidth: 34)
+
+                                    Button {
+                                        adjust(item.code, by: 1)
+                                    } label: {
+                                        Image(systemName: "plus.circle.fill")
+                                            .font(.title3)
+                                    }
+                                    .buttonStyle(.borderless)
                                 }
                             }
                         } header: {
@@ -108,6 +122,11 @@ struct DuplicatesView: View {
                 }
             }
         }
+    }
+
+    private func adjust(_ code: String, by delta: Int) {
+        store.adjustDuplicates(code, by: delta)
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
     }
 
     /// Selecting the current field flips its direction; selecting a new field
