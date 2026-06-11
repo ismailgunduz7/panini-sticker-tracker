@@ -14,7 +14,7 @@ struct StickerCellView: View {
             UIImpactFeedbackGenerator(style: .light).impactOccurred()
         } label: {
             VStack(spacing: 6) {
-                Image(systemName: sticker.type.symbolName)
+                Image(systemName: sticker.symbolName)
                     .font(.body)
                 Text(verbatim: sticker.code)
                     .font(.caption2.weight(.semibold).monospacedDigit())
