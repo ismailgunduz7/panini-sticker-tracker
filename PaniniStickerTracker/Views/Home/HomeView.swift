@@ -106,6 +106,13 @@ struct HomeView: View {
             .searchable(text: $searchText, prompt: Text("Search country"))
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink {
+                        DuplicatesView()
+                    } label: {
+                        Image(systemName: "doc.on.doc")
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
                     Menu {
                         ForEach(CountrySortField.allCases) { field in
                             Button {
