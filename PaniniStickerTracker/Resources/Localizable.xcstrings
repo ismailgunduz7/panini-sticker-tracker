@@ -64,6 +64,16 @@
         }
       }
     },
+    "Album Sorting": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Albüm Sıralaması"
+          }
+        }
+      }
+    },
     "All Participants": {
       "localizations": {
         "tr": {
@@ -80,6 +90,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Görünüm"
+          }
+        }
+      }
+    },
+    "Ascending": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Artan"
           }
         }
       }
@@ -347,6 +367,26 @@
         }
       }
     },
+    "Descending": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Azalan"
+          }
+        }
+      }
+    },
+    "Direction": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yön"
+          }
+        }
+      }
+    },
     "Duplicate Count": {
       "localizations": {
         "tr": {
@@ -363,6 +403,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Çiftler"
+          }
+        }
+      }
+    },
+    "Duplicates Sorting": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Çift Sıralaması"
           }
         }
       }
@@ -834,6 +884,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sırala"
+          }
+        }
+      }
+    },
+    "Sort By": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sıralama Ölçütü"
           }
         }
       }
