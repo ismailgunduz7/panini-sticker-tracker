@@ -29,16 +29,8 @@ struct CountryDetailView: View {
             VStack(spacing: 16) {
                 header
 
-                PageGridView(
-                    title: Text("Page \(country.startPage)"),
-                    stickers: Array(country.stickers[0..<10]),
-                    theme: country.theme
-                )
-                PageGridView(
-                    title: Text("Page \(country.startPage + 1)"),
-                    stickers: Array(country.stickers[10..<20]),
-                    theme: country.theme
-                )
+                CountryPageView(country: country, pageIndex: 1)
+                CountryPageView(country: country, pageIndex: 2)
             }
             .padding(.horizontal)
             .padding(.bottom)
