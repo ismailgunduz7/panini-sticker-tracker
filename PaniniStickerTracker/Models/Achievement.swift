@@ -4,9 +4,12 @@ import SwiftUI
 /// Built once per evaluation so individual criteria stay cheap.
 struct AchievementContext {
     let ownedCodes: Set<String>
+    /// Total spare copies across the whole album (sum of every duplicateCount).
+    let totalDuplicates: Int
 
     init(entries: [String: CollectionEntry]) {
         ownedCodes = Set(entries.values.filter(\.isOwned).map(\.code))
+        totalDuplicates = entries.values.reduce(0) { $0 + $1.duplicateCount }
     }
 
     func owns(_ code: String) -> Bool { ownedCodes.contains(code) }
@@ -33,6 +36,7 @@ enum AchievementCategory: String, CaseIterable, Identifiable, Sendable {
     case firstStickers
     case firstCompletions
     case milestones
+    case duplicates
 
     var id: String { rawValue }
 
@@ -41,6 +45,7 @@ enum AchievementCategory: String, CaseIterable, Identifiable, Sendable {
         case .firstStickers: "First Stickers"
         case .firstCompletions: "First Completions"
         case .milestones: "Milestones"
+        case .duplicates: "Duplicates"
         }
     }
 }
@@ -57,7 +62,7 @@ struct Achievement: Identifiable {
     let isSatisfied: (AchievementContext) -> Bool
 
     /// The full catalog, in display order.
-    static let all: [Achievement] = firstStickers + firstCompletions + milestones
+    static let all: [Achievement] = firstStickers + firstCompletions + milestones + duplicates
 
     static func byID(_ id: String) -> Achievement? { lookup[id] }
     private static let lookup: [String: Achievement] =
@@ -219,6 +224,56 @@ struct Achievement: Identifiable {
             symbolName: "crown.fill",
             tint: .orange,
             isSatisfied: { $0.ownsAll(of: AlbumDefinition.allStickerCodes) }
+        ),
+    ]
+
+    // MARK: - Duplicate hoarding (total spare copies)
+
+    private static let duplicates: [Achievement] = [
+        Achievement(
+            id: "dup.first",
+            category: .duplicates,
+            title: "First Duplicate",
+            detail: "Own your first duplicate sticker.",
+            symbolName: "doc.on.doc.fill",
+            tint: .orange,
+            isSatisfied: { $0.totalDuplicates >= 1 }
+        ),
+        Achievement(
+            id: "dup.pack",
+            category: .duplicates,
+            title: "Pack of Duplicates",
+            detail: "Pile up 7 duplicate stickers.",
+            symbolName: "shippingbox.fill",
+            tint: .brown,
+            isSatisfied: { $0.totalDuplicates >= 7 }
+        ),
+        Achievement(
+            id: "dup.page",
+            category: .duplicates,
+            title: "Page of Duplicates",
+            detail: "Pile up 10 duplicate stickers.",
+            symbolName: "doc.fill",
+            tint: .teal,
+            isSatisfied: { $0.totalDuplicates >= 10 }
+        ),
+        Achievement(
+            id: "dup.team",
+            category: .duplicates,
+            title: "Team of Duplicates",
+            detail: "Pile up 20 duplicate stickers.",
+            symbolName: "person.3.fill",
+            tint: .pink,
+            isSatisfied: { $0.totalDuplicates >= 20 }
+        ),
+        Achievement(
+            id: "dup.group",
+            category: .duplicates,
+            title: "Group of Duplicates",
+            detail: "Pile up 80 duplicate stickers.",
+            symbolName: "square.grid.2x2.fill",
+            tint: .purple,
+            isSatisfied: { $0.totalDuplicates >= 80 }
         ),
     ]
 }

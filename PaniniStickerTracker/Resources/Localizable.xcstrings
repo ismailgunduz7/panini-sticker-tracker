@@ -427,6 +427,16 @@
         }
       }
     },
+    "First Duplicate": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İlk Kopya"
+          }
+        }
+      }
+    },
     "First FWC Sticker": {
       "localizations": {
         "tr": {
@@ -513,6 +523,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ Grubu"
+          }
+        }
+      }
+    },
+    "Group of Duplicates": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir Grup Kopya"
           }
         }
       }
@@ -667,6 +687,26 @@
         }
       }
     },
+    "Own your first duplicate sticker.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İlk kopya stickerına sahip ol."
+          }
+        }
+      }
+    },
+    "Pack of Duplicates": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir Paket Kopya"
+          }
+        }
+      }
+    },
     "Page %lld": {
       "localizations": {
         "tr": {
@@ -677,12 +717,62 @@
         }
       }
     },
+    "Page of Duplicates": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir Sayfa Kopya"
+          }
+        }
+      }
+    },
     "Pages": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
             "value": "Sayfalar"
+          }
+        }
+      }
+    },
+    "Pile up 10 duplicate stickers.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "10 kopya sticker biriktir."
+          }
+        }
+      }
+    },
+    "Pile up 20 duplicate stickers.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "20 kopya sticker biriktir."
+          }
+        }
+      }
+    },
+    "Pile up 7 duplicate stickers.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7 kopya sticker biriktir."
+          }
+        }
+      }
+    },
+    "Pile up 80 duplicate stickers.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "80 kopya sticker biriktir."
           }
         }
       }
@@ -814,6 +904,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Takım Fotoğrafları"
+          }
+        }
+      }
+    },
+    "Team of Duplicates": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir Takım Kopya"
           }
         }
       }
