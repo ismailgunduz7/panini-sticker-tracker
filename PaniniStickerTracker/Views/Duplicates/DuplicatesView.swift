@@ -55,7 +55,7 @@ struct DuplicatesView: View {
                 ContentUnavailableView {
                     Label("No Duplicates", systemImage: "doc.on.doc")
                 } description: {
-                    Text("Stickers you own more than one of will appear here.")
+                    Text("Press and hold a sticker on its album page to add a duplicate.")
                 }
             } else {
                 List {

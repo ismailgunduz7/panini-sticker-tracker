@@ -827,6 +827,16 @@
         }
       }
     },
+    "Press and hold a sticker on its album page to add a duplicate.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopya eklemek için albüm sayfasında bir stickera uzun bas."
+          }
+        }
+      }
+    },
     "Recently Collected": {
       "localizations": {
         "tr": {
@@ -924,16 +934,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "İstatistikler"
-          }
-        }
-      }
-    },
-    "Stickers you own more than one of will appear here.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Birden fazla sahip olduğun stickerlar burada görünür."
           }
         }
       }
