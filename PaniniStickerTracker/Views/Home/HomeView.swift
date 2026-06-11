@@ -1,17 +1,38 @@
 import SwiftUI
 
-enum CountrySortOrder: String, CaseIterable, Identifiable {
+enum CountrySortField: String, CaseIterable, Identifiable {
     case albumOrder
     case name
     case completion
 
     var id: String { rawValue }
+
+    var label: LocalizedStringKey {
+        switch self {
+        case .albumOrder: "Album Order"
+        case .name: "Name"
+        case .completion: "Completion"
+        }
+    }
+
+    /// Direction applied the first time this field is selected.
+    var defaultAscending: Bool {
+        switch self {
+        case .albumOrder, .name: true
+        case .completion: false   // most complete first
+        }
+    }
 }
 
 struct HomeView: View {
     @Environment(CollectionStore.self) private var store
     @State private var searchText = ""
-    @State private var sortOrder: CountrySortOrder = .albumOrder
+    @AppStorage("homeSortField") private var sortFieldRaw = CountrySortField.albumOrder.rawValue
+    @AppStorage("homeSortAscending") private var sortAscending = true
+
+    private var sortField: CountrySortField {
+        CountrySortField(rawValue: sortFieldRaw) ?? .albumOrder
+    }
 
     private let columns = [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)]
 
@@ -23,15 +44,29 @@ struct HomeView: View {
                     || $0.code.localizedCaseInsensitiveContains(searchText)
             }
         }
-        switch sortOrder {
+        // Build the ascending order for the chosen field, then flip if needed.
+        let ascending: [Country]
+        switch sortField {
         case .albumOrder:
-            return countries
+            ascending = countries
         case .name:
-            return countries.sorted { $0.name.localizedCompare($1.name) == .orderedAscending }
+            ascending = countries.sorted { $0.name.localizedCompare($1.name) == .orderedAscending }
         case .completion:
-            return countries.sorted {
-                store.ownedCount(in: $0.stickerCodes) > store.ownedCount(in: $1.stickerCodes)
+            ascending = countries.sorted {
+                store.ownedCount(in: $0.stickerCodes) < store.ownedCount(in: $1.stickerCodes)
             }
+        }
+        return sortAscending ? ascending : ascending.reversed()
+    }
+
+    /// Selecting the current field flips its direction; selecting a new field
+    /// applies that field's default direction.
+    private func selectSort(_ field: CountrySortField) {
+        if sortField == field {
+            sortAscending.toggle()
+        } else {
+            sortFieldRaw = field.rawValue
+            sortAscending = field.defaultAscending
         }
     }
 
@@ -72,10 +107,17 @@ struct HomeView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
-                        Picker("Sort", selection: $sortOrder) {
-                            Text("Album Order").tag(CountrySortOrder.albumOrder)
-                            Text("Name").tag(CountrySortOrder.name)
-                            Text("Completion").tag(CountrySortOrder.completion)
+                        ForEach(CountrySortField.allCases) { field in
+                            Button {
+                                selectSort(field)
+                            } label: {
+                                if sortField == field {
+                                    Label(field.label,
+                                          systemImage: sortAscending ? "chevron.up" : "chevron.down")
+                                } else {
+                                    Text(field.label)
+                                }
+                            }
                         }
                     } label: {
                         Image(systemName: "arrow.up.arrow.down")

@@ -1,852 +1,853 @@
 {
-  "sourceLanguage": "en",
-  "strings": {
-    "%lld / %lld": {
-      "shouldTranslate": false
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%lld / %lld" : {
+      "shouldTranslate" : false
     },
-    "%lld of %lld stickers": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld / %lld sticker"
+    "%lld of %lld stickers" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld / %lld sticker"
           }
         }
       }
     },
-    "Achievement Unlocked": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Başarım Açıldı"
+    "Achievement Unlocked" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Başarım Açıldı"
           }
         }
       }
     },
-    "Achievements": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Başarımlar"
+    "Achievements" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Başarımlar"
           }
         }
       }
     },
-    "Add Duplicate": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Çift Ekle"
+    "Add Duplicate" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çift Ekle"
           }
         }
       }
     },
-    "Album": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Albüm"
+    "Album" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Albüm"
           }
         }
       }
     },
-    "Album Order": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Defter Sırası"
+    "Album Order" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Defter Sırası"
           }
         }
       }
     },
-    "All Participants": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tüm Katılımcılar"
+    "All Participants" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tüm Katılımcılar"
           }
         }
       }
     },
-    "Appearance": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Görünüm"
+    "Appearance" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Görünüm"
           }
         }
       }
     },
-    "Cancel": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vazgeç"
+    "Cancel" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vazgeç"
           }
         }
       }
     },
-    "Clear All": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tümünü Temizle"
+    "Clear All" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tümünü Temizle"
           }
         }
       }
     },
-    "Closest Page to Completion": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bitmeye En Yakın Sayfa"
+    "Closest Page to Completion" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitmeye En Yakın Sayfa"
           }
         }
       }
     },
-    "Coca-Cola": {
-      "shouldTranslate": false
+    "Coca-Cola" : {
+      "shouldTranslate" : false
     },
-    "Coca-Cola Complete": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Coca-Cola Tamamlandı"
+    "Coca-Cola Complete" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coca-Cola Tamamlandı"
           }
         }
       }
     },
-    "Coca-Cola Stickers": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Coca-Cola Stickerları"
+    "Coca-Cola Stickers" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coca-Cola Stickerları"
           }
         }
       }
     },
-    "Collect every single sticker in the album.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Albümdeki her stickerı topla."
+    "Collect every single sticker in the album." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Albümdeki her stickerı topla."
           }
         }
       }
     },
-    "Collect half of the entire album.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Albümün yarısını topla."
+    "Collect half of the entire album." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Albümün yarısını topla."
           }
         }
       }
     },
-    "Collect your first FIFA World Cup sticker.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "İlk FIFA Dünya Kupası stickerını topla."
+    "Collect your first country logo sticker." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İlk ülke logosu stickerını topla."
           }
         }
       }
     },
-    "Collect your first country logo sticker.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "İlk ülke logosu stickerını topla."
+    "Collect your first FIFA World Cup sticker." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İlk FIFA Dünya Kupası stickerını topla."
           }
         }
       }
     },
-    "Collect your first player sticker.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "İlk futbolcu stickerını topla."
+    "Collect your first player sticker." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İlk futbolcu stickerını topla."
           }
         }
       }
     },
-    "Collect your first sticker from a %@ nation.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bir %@ ülkesinden ilk stickerını topla."
+    "Collect your first sticker from a %@ nation." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bir %@ ülkesinden ilk stickerını topla."
           }
         }
       }
     },
-    "Collect your first team photo sticker.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "İlk takım fotoğrafı stickerını topla."
+    "Collect your first team photo sticker." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İlk takım fotoğrafı stickerını topla."
           }
         }
       }
     },
-    "Collection Complete": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Koleksiyon Tamamlandı"
+    "Collection Complete" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Koleksiyon Tamamlandı"
           }
         }
       }
     },
-    "Complete a full team page.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bir takım sayfasını tamamen tamamla."
+    "Complete a full team page." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bir takım sayfasını tamamen tamamla."
           }
         }
       }
     },
-    "Complete every Coca-Cola sticker.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tüm Coca-Cola stickerlarını tamamla."
+    "Complete every Coca-Cola sticker." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tüm Coca-Cola stickerlarını tamamla."
           }
         }
       }
     },
-    "Complete every FIFA World Cup sticker.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tüm FIFA Dünya Kupası stickerlarını tamamla."
+    "Complete every FIFA World Cup sticker." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tüm FIFA Dünya Kupası stickerlarını tamamla."
           }
         }
       }
     },
-    "Complete every sticker of a single team.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tek bir takımın tüm stickerlarını tamamla."
+    "Complete every sticker of a single team." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tek bir takımın tüm stickerlarını tamamla."
           }
         }
       }
     },
-    "Complete every team in a single group.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bir gruptaki tüm takımları tamamla."
+    "Complete every team in a single group." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bir gruptaki tüm takımları tamamla."
           }
         }
       }
     },
-    "Complete every team of a single confederation.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bir konfederasyonun tüm takımlarını tamamla."
+    "Complete every team of a single confederation." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bir konfederasyonun tüm takımlarını tamamla."
           }
         }
       }
     },
-    "Complete every team sticker in the album.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Albümdeki tüm takım stickerlarını tamamla."
+    "Complete every team sticker in the album." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Albümdeki tüm takım stickerlarını tamamla."
           }
         }
       }
     },
-    "Completed Countries": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Biten Ülkeler"
+    "Completed Countries" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Biten Ülkeler"
           }
         }
       }
     },
-    "Completed Pages": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Biten Sayfalar"
+    "Completed Pages" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Biten Sayfalar"
           }
         }
       }
     },
-    "Completion": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tamamlanma"
+    "Completion" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tamamlanma"
           }
         }
       }
     },
-    "Countries": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ülkeler"
+    "Countries" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ülkeler"
           }
         }
       }
     },
-    "Dark": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Koyu"
+    "Dark" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Koyu"
           }
         }
       }
     },
-    "Delete all collection data? This cannot be undone.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tüm koleksiyon verileri silinsin mi? Bu işlem geri alınamaz."
+    "Delete all collection data? This cannot be undone." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tüm koleksiyon verileri silinsin mi? Bu işlem geri alınamaz."
           }
         }
       }
     },
-    "Duplicates": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Çiftler"
+    "Duplicates" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çiftler"
           }
         }
       }
     },
-    "FIFA World Cup 2026™ Panini sticker album · 992 stickers": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "FIFA Dünya Kupası 2026™ Panini sticker albümü · 992 sticker"
+    "Federation Logos" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Federasyon Logoları"
           }
         }
       }
     },
-    "FWC Complete": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "FWC Tamamlandı"
+    "FIFA World Cup 2026™ Panini sticker album · 992 stickers" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FIFA Dünya Kupası 2026™ Panini sticker albümü · 992 sticker"
           }
         }
       }
     },
-    "Federation Logos": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Federasyon Logoları"
+    "First %@ Sticker" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İlk %@ Stickerı"
           }
         }
       }
     },
-    "First %@ Sticker": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "İlk %@ Stickerı"
+    "First Completions" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İlk Tamamlamalar"
           }
         }
       }
     },
-    "First Completions": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "İlk Tamamlamalar"
+    "First Confederation Complete" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İlk Konfederasyon Tamamlandı"
           }
         }
       }
     },
-    "First Confederation Complete": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "İlk Konfederasyon Tamamlandı"
+    "First Federation Logo" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İlk Ülke Logosu"
           }
         }
       }
     },
-    "First FWC Sticker": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "İlk FWC Stickerı"
+    "First FWC Sticker" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İlk FWC Stickerı"
           }
         }
       }
     },
-    "First Federation Logo": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "İlk Ülke Logosu"
+    "First Group Complete" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İlk Grup Tamamlandı"
           }
         }
       }
     },
-    "First Group Complete": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "İlk Grup Tamamlandı"
+    "First Player" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İlk Futbolcu"
           }
         }
       }
     },
-    "First Player": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "İlk Futbolcu"
+    "First Stickers" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İlk Stickerlar"
           }
         }
       }
     },
-    "First Stickers": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "İlk Stickerlar"
+    "First Team Complete" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İlk Takım Tamamlandı"
           }
         }
       }
     },
-    "First Team Complete": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "İlk Takım Tamamlandı"
+    "First Team Photo" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İlk Takım Fotoğrafı"
           }
         }
       }
     },
-    "First Team Photo": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "İlk Takım Fotoğrafı"
+    "Front Cover" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ön Kapak"
           }
         }
       }
     },
-    "Front Cover": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ön Kapak"
+    "FWC Complete" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FWC Tamamlandı"
           }
         }
       }
     },
-    "Group %@": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ Grubu"
+    "Group %@" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ Grubu"
           }
         }
       }
     },
-    "Groups": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gruplar"
+    "Groups" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gruplar"
           }
         }
       }
     },
-    "Halfway There": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Yolun Yarısı"
+    "Halfway There" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yolun Yarısı"
           }
         }
       }
     },
-    "Include Coca-Cola & Special Stickers": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Coca-Cola ve Özel Stickerları Dahil Et"
+    "Include Coca-Cola & Special Stickers" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coca-Cola ve Özel Stickerları Dahil Et"
           }
         }
       }
     },
-    "Inside Back Cover": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Arka Kapak İçi"
+    "Inside Back Cover" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arka Kapak İçi"
           }
         }
       }
     },
-    "Least Collected": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "En Az Toplanan"
+    "Least Collected" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En Az Toplanan"
           }
         }
       }
     },
-    "Light": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Açık"
+    "Light" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Açık"
           }
         }
       }
     },
-    "Mark All": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tümünü İşaretle"
+    "Mark All" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tümünü İşaretle"
           }
         }
       }
     },
-    "Milestones": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kilometre Taşları"
+    "Milestones" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kilometre Taşları"
           }
         }
       }
     },
-    "Missing Stickers": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Eksik Sticker"
+    "Missing Stickers" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eksik Sticker"
           }
         }
       }
     },
-    "Most Collected": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "En Çok Toplanan"
+    "Most Collected" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En Çok Toplanan"
           }
         }
       }
     },
-    "Most Duplicates": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "En Çok Çift"
+    "Most Duplicates" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En Çok Çift"
           }
         }
       }
     },
-    "Name": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "İsim"
+    "Name" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İsim"
           }
         }
       }
     },
-    "Overall": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Genel"
+    "Overall" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Genel"
           }
         }
       }
     },
-    "Overall Progress": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Genel İlerleme"
+    "Overall Progress" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Genel İlerleme"
           }
         }
       }
     },
-    "Page %lld": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sayfa %lld"
+    "Page %lld" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sayfa %lld"
           }
         }
       }
     },
-    "Pages": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sayfalar"
+    "Pages" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sayfalar"
           }
         }
       }
     },
-    "Recently Collected": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Son Eklenenler"
+    "Recently Collected" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Son Eklenenler"
           }
         }
       }
     },
-    "Remove Duplicate": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Çift Çıkar"
+    "Remove Duplicate" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çift Çıkar"
           }
         }
       }
     },
-    "Reset All Data": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tüm Verileri Sıfırla"
+    "Reset All Data" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tüm Verileri Sıfırla"
           }
         }
       }
     },
-    "Search country": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ülke ara"
+    "Search country" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ülke ara"
           }
         }
       }
     },
-    "Settings": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ayarlar"
+    "Settings" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ayarlar"
           }
         }
       }
     },
-    "Sort": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sırala"
+    "Sort" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sırala"
           }
         }
       }
     },
-    "Special": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Özel"
+    "Special" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Özel"
           }
         }
       }
     },
-    "Special Sticker": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Özel Sticker"
+    "Special Sticker" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Özel Sticker"
           }
         }
       }
     },
-    "Stats": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "İstatistikler"
+    "Stats" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İstatistikler"
           }
         }
       }
     },
-    "System": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sistem"
+    "System" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sistem"
           }
         }
       }
     },
-    "Team Page": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Takım Sayfası"
+    "Team Page" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Takım Sayfası"
           }
         }
       }
     },
-    "Team Photos": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Takım Fotoğrafları"
+    "Team Photos" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Takım Fotoğrafları"
           }
         }
       }
     },
-    "Total Duplicates": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Toplam Çift"
+    "Total Duplicates" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toplam Çift"
           }
         }
       }
     },
-    "Total Progress": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Toplam İlerleme"
+    "Total Progress" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toplam İlerleme"
           }
         }
       }
     },
-    "Unlocked": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Açılan"
+    "Unlocked" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Açılan"
           }
         }
       }
     },
-    "When off, the 00 and Coca-Cola stickers are excluded from all statistics.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kapalıyken 00 ve Coca-Cola stickerları tüm istatistiklerin dışında tutulur."
+    "When off, the 00 and Coca-Cola stickers are excluded from all statistics." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kapalıyken 00 ve Coca-Cola stickerları tüm istatistiklerin dışında tutulur."
           }
         }
       }
     },
-    "World Cup": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dünya Kupası"
+    "World Cup" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dünya Kupası"
           }
         }
       }
     },
-    "World Cup Stickers": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dünya Kupası Stickerları"
+    "World Cup Stickers" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dünya Kupası Stickerları"
           }
         }
       }
     }
   },
-  "version": "1.0"
+  "version" : "1.0"
 }
