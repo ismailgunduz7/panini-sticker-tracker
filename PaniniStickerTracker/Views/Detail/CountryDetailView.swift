@@ -3,10 +3,26 @@ import SwiftUI
 struct CountryDetailView: View {
     @Environment(CollectionStore.self) private var store
     @Environment(\.colorScheme) private var colorScheme
-    let country: Country
+    @State private var country: Country
+    @State private var slideEdge: Edge = .trailing
+
+    init(country: Country) {
+        _country = State(initialValue: country)
+    }
 
     private var ownedCount: Int { store.ownedCount(in: country.stickerCodes) }
     private var allOwned: Bool { ownedCount == Country.stickersPerCountry }
+
+    private var countryIndex: Int {
+        AlbumDefinition.countries.firstIndex(of: country) ?? 0
+    }
+    private var previousCountry: Country? {
+        countryIndex > 0 ? AlbumDefinition.countries[countryIndex - 1] : nil
+    }
+    private var nextCountry: Country? {
+        countryIndex < AlbumDefinition.countries.count - 1
+            ? AlbumDefinition.countries[countryIndex + 1] : nil
+    }
 
     var body: some View {
         ScrollView {
@@ -26,6 +42,8 @@ struct CountryDetailView: View {
             }
             .padding(.horizontal)
             .padding(.bottom)
+            .id(country.code)
+            .transition(.push(from: slideEdge))
         }
         .background(Color(.systemGroupedBackground))
         .navigationTitle(Text(verbatim: country.name))
@@ -40,6 +58,15 @@ struct CountryDetailView: View {
                         : Label("Mark All", systemImage: "checkmark.circle")
                 }
             }
+        }
+    }
+
+    private func go(to neighbor: Country?, slideFrom edge: Edge) {
+        guard let neighbor else { return }
+        slideEdge = edge
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        withAnimation(.snappy) {
+            country = neighbor
         }
     }
 
@@ -63,9 +90,26 @@ struct CountryDetailView: View {
             }
             ProgressView(value: Double(ownedCount), total: Double(Country.stickersPerCountry))
                 .tint(textColor)
-            Text("\(ownedCount) / \(Country.stickersPerCountry)")
-                .font(.caption.monospacedDigit())
-                .opacity(0.85)
+            HStack {
+                if let previousCountry {
+                    HStack(spacing: 3) {
+                        Image(systemName: "chevron.left")
+                        Text(verbatim: previousCountry.code)
+                    }
+                }
+                Spacer()
+                Text("\(ownedCount) / \(Country.stickersPerCountry)")
+                    .font(.caption.monospacedDigit())
+                Spacer()
+                if let nextCountry {
+                    HStack(spacing: 3) {
+                        Text(verbatim: nextCountry.code)
+                        Image(systemName: "chevron.right")
+                    }
+                }
+            }
+            .font(.caption2.weight(.semibold))
+            .opacity(0.7)
         }
         .foregroundStyle(textColor)
         .padding()
@@ -76,6 +120,19 @@ struct CountryDetailView: View {
         )
         .clipShape(RoundedRectangle(cornerRadius: 16))
         .padding(.top, 8)
+        .gesture(
+            DragGesture(minimumDistance: 25)
+                .onEnded { value in
+                    // Only react to mostly-horizontal swipes so vertical
+                    // scrolling over the header keeps working.
+                    guard abs(value.translation.width) > abs(value.translation.height) else { return }
+                    if value.translation.width < 0 {
+                        go(to: nextCountry, slideFrom: .trailing)
+                    } else {
+                        go(to: previousCountry, slideFrom: .leading)
+                    }
+                }
+        )
     }
 }
 
