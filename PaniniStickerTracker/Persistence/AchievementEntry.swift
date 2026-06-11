@@ -12,5 +12,6 @@ struct AchievementEntry: Hashable, Codable, Sendable {
 protocol AchievementRepository {
     func loadAll() async throws -> [AchievementEntry]
     func unlock(_ entry: AchievementEntry) async throws
+    func revoke(_ id: String) async throws
     func resetAll() async throws
 }

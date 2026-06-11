@@ -22,6 +22,14 @@ final class LocalAchievementRepository: AchievementRepository {
         }
     }
 
+    func revoke(_ id: String) async throws {
+        let descriptor = FetchDescriptor<AchievementRecord>(predicate: #Predicate { $0.id == id })
+        if let existing = try context.fetch(descriptor).first {
+            context.delete(existing)
+            try context.save()
+        }
+    }
+
     func resetAll() async throws {
         try context.delete(model: AchievementRecord.self)
         try context.save()

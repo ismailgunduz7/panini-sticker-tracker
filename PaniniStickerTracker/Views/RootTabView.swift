@@ -54,5 +54,6 @@ final class PreviewRepository: CollectionRepository {
 final class PreviewAchievementRepository: AchievementRepository {
     func loadAll() async throws -> [AchievementEntry] { [] }
     func unlock(_ entry: AchievementEntry) async throws {}
+    func revoke(_ id: String) async throws {}
     func resetAll() async throws {}
 }
