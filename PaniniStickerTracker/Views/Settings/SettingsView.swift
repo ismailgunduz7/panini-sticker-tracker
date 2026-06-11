@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @Environment(CollectionStore.self) private var store
+    @Environment(AchievementStore.self) private var achievements
     @AppStorage("includeExtrasInStats") private var includeExtras = true
     @AppStorage("appearancePreference") private var appearanceRaw = AppearancePreference.system.rawValue
     @State private var showingResetConfirmation = false
@@ -42,6 +43,7 @@ struct SettingsView: View {
             ) {
                 Button("Reset All Data", role: .destructive) {
                     store.resetAll()
+                    achievements.resetAll()
                 }
                 Button("Cancel", role: .cancel) {}
             }
@@ -52,4 +54,5 @@ struct SettingsView: View {
 #Preview {
     SettingsView()
         .environment(CollectionStore(repository: PreviewRepository()))
+        .environment(AchievementStore(repository: PreviewAchievementRepository()))
 }

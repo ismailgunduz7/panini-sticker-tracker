@@ -123,6 +123,30 @@ enum AlbumDefinition {
     static let extraStickerCodes: Set<String> =
         Set([specialSticker.code] + cocaColaStickers.map(\.code))
 
+    /// Every sticker in the album (countries + FWC + 00 + Coca-Cola).
+    static let allStickerCodes: Set<String> =
+        countryStickerCodes
+            .union(fwcStickers.map(\.code))
+            .union(extraStickerCodes)
+
+    /// Player stickers across all countries (index 2…20, excluding 1 & 13).
+    static let playerStickerCodes: Set<String> =
+        Set(countries.flatMap { country in
+            (2...Country.stickersPerCountry).compactMap { $0 == 13 ? nil : "\(country.code)\($0)" }
+        })
+
+    /// Federation-logo stickers (index 1 of each country).
+    static let federationLogoStickerCodes: Set<String> =
+        Set(countries.map { "\($0.code)1" })
+
+    /// Team-photo stickers (index 13 of each country).
+    static let teamPhotoStickerCodes: Set<String> =
+        Set(countries.map { "\($0.code)13" })
+
+    /// Coca-Cola sticker codes only (CC1…CC12).
+    static let cocaColaStickerCodes: Set<String> =
+        Set(cocaColaStickers.map(\.code))
+
     /// Country pages only — the universe for "closest page" / "completed pages" stats.
     static let countryPages: [AlbumPage] = countries.flatMap { country in
         [

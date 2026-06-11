@@ -10,6 +10,10 @@ final class CollectionStore {
 
     @ObservationIgnored private let repository: CollectionRepository
 
+    /// Called after any mutation so downstream consumers (e.g. achievements)
+    /// can re-evaluate. Not invoked during `load()`.
+    @ObservationIgnored var onEntriesChanged: (([String: CollectionEntry]) -> Void)?
+
     init(repository: CollectionRepository) {
         self.repository = repository
     }
@@ -73,6 +77,7 @@ final class CollectionStore {
         Task { [repository] in
             try? await repository.resetAll()
         }
+        onEntriesChanged?(entries)
     }
 
     private func persist(_ entry: CollectionEntry) {
@@ -80,5 +85,6 @@ final class CollectionStore {
         Task { [repository] in
             try? await repository.upsert(entry)
         }
+        onEntriesChanged?(entries)
     }
 }

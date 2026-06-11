@@ -25,22 +25,34 @@ struct RootTabView: View {
             Tab("Stats", systemImage: "chart.bar.fill") {
                 StatsView()
             }
+            Tab("Achievements", systemImage: "trophy.fill") {
+                AchievementsView()
+            }
             Tab("Settings", systemImage: "gearshape.fill") {
                 SettingsView()
             }
         }
         .preferredColorScheme(AppearancePreference(rawValue: appearanceRaw)?.colorScheme)
+        .achievementOverlay()
     }
 }
 
 #Preview {
     RootTabView()
         .environment(CollectionStore(repository: PreviewRepository()))
+        .environment(AchievementStore(repository: PreviewAchievementRepository()))
 }
 
 /// In-memory repository for previews.
 final class PreviewRepository: CollectionRepository {
     func loadAll() async throws -> [CollectionEntry] { [] }
     func upsert(_ entry: CollectionEntry) async throws {}
+    func resetAll() async throws {}
+}
+
+/// In-memory achievement repository for previews.
+final class PreviewAchievementRepository: AchievementRepository {
+    func loadAll() async throws -> [AchievementEntry] { [] }
+    func unlock(_ entry: AchievementEntry) async throws {}
     func resetAll() async throws {}
 }

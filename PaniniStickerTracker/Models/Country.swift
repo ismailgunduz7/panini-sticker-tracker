@@ -9,6 +9,8 @@ struct Country: Identifiable, Hashable, Sendable {
 
     var id: String { code }
 
+    var confederation: Confederation? { Confederation.of(code) }
+
     static let stickersPerCountry = 20
     static let stickersPerPage = 10
 
