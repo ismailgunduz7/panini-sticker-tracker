@@ -43,6 +43,7 @@ struct DuplicatesView: View {
     @Environment(CollectionStore.self) private var store
     @AppStorage("duplicatesSortField") private var sortFieldRaw = DuplicateSortField.albumOrder.rawValue
     @AppStorage("duplicatesSortAscending") private var sortAscending = true
+    @State private var showingAdd = false
 
     private var sortField: DuplicateSortField {
         DuplicateSortField(rawValue: sortFieldRaw) ?? .albumOrder
@@ -102,7 +103,17 @@ struct DuplicatesView: View {
         }
         .navigationTitle("Duplicates")
         .navigationBarTitleDisplayMode(.inline)
+        .sheet(isPresented: $showingAdd) {
+            AddDuplicateSheet()
+        }
         .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    showingAdd = true
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
             ToolbarItem(placement: .topBarTrailing) {
                 Menu {
                     ForEach(DuplicateSortField.allCases) { field in
@@ -153,7 +164,7 @@ struct DuplicatesView: View {
         for section in SpecialSection.allCases {
             let items = duplicateItems(in: section.stickerCodes)
             if !items.isEmpty {
-                result.append(DuplicateGroup(id: section.id, title: specialTitle(section), items: items))
+                result.append(DuplicateGroup(id: section.id, title: section.displayName, items: items))
             }
         }
         return result
@@ -176,14 +187,6 @@ struct DuplicatesView: View {
         codes.compactMap { code in
             let count = store.duplicateCount(code)
             return count > 0 ? DuplicateItem(code: code, count: count) : nil
-        }
-    }
-
-    private func specialTitle(_ section: SpecialSection) -> String {
-        switch section {
-        case .fwc: String(localized: "World Cup")
-        case .special: String(localized: "Special")
-        case .cocaCola: String(localized: "Coca-Cola")
         }
     }
 }

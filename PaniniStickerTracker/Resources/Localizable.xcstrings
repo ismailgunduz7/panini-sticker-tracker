@@ -387,6 +387,16 @@
         }
       }
     },
+    "Done": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tamam"
+          }
+        }
+      }
+    },
     "Duplicate Count": {
       "localizations": {
         "tr": {
@@ -717,6 +727,26 @@
         }
       }
     },
+    "No Stickers Available": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sticker Yok"
+          }
+        }
+      }
+    },
+    "Only owned stickers without a duplicate can be added here.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yalnızca kopyası olmayan, sahip olduğun stickerlar burada eklenebilir."
+          }
+        }
+      }
+    },
     "Overall": {
       "localizations": {
         "tr": {
@@ -863,6 +893,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tüm Verileri Sıfırla"
+          }
+        }
+      }
+    },
+    "Search code or country": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kod veya ülke ara"
           }
         }
       }

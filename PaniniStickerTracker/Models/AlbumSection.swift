@@ -18,6 +18,15 @@ enum SpecialSection: String, Identifiable, CaseIterable, Hashable, Sendable {
 
     var stickerCodes: [String] { stickers.map(\.code) }
 
+    /// Localized short name, used when listing the section alongside countries.
+    var displayName: String {
+        switch self {
+        case .fwc: String(localized: "World Cup")
+        case .special: String(localized: "Special")
+        case .cocaCola: String(localized: "Coca-Cola")
+        }
+    }
+
     var theme: CountryTheme {
         switch self {
         case .fwc: CountryTheme(primaryHex: "C9A227", secondaryHex: "8C6E14")
