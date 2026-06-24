@@ -1,5 +1,6 @@
 import SwiftUI
 import AVFoundation
+import PhotosUI
 import VisionKit
 
 /// The Trade tab: show your collection as a QR for others to scan, or scan
@@ -8,12 +9,15 @@ struct TradeView: View {
     @Environment(CollectionStore.self) private var store
 
     private enum Mode: Hashable { case myQR, scan }
+    private enum SaveStatus { case saved, failed }
 
     @State private var mode: Mode = .myQR
     @State private var result: ScannedTrade?
     @State private var showInvalid = false
     @State private var scannerID = UUID()
     @State private var cameraAuthorized = AVCaptureDevice.authorizationStatus(for: .video) == .authorized
+    @State private var pickerItem: PhotosPickerItem?
+    @State private var saveStatus: SaveStatus?
 
     private struct ScannedTrade: Identifiable {
         let id = UUID()
@@ -42,6 +46,19 @@ struct TradeView: View {
         .navigationBarTitleDisplayMode(.inline)
         .background(Color(.systemGroupedBackground))
         .task { await requestCameraAccessIfNeeded() }
+        .toolbar {
+            if mode == .scan {
+                ToolbarItem(placement: .topBarTrailing) {
+                    PhotosPicker(selection: $pickerItem, matching: .images) {
+                        Label("Choose from Photos", systemImage: "photo.on.rectangle")
+                    }
+                }
+            }
+        }
+        .onChange(of: pickerItem) { _, item in
+            guard let item else { return }
+            Task { await scanPicked(item) }
+        }
         .sheet(item: $result, onDismiss: { scannerID = UUID() }) { scanned in
             TradeResultView(theirs: scanned.payload)
         }
@@ -50,14 +67,26 @@ struct TradeView: View {
         } message: {
             Text("This QR code isn't a Sticker Tracker trade code.")
         }
+        .alert("Saved to Photos", isPresented: .constant(saveStatus == .saved)) {
+            Button("OK", role: .cancel) { saveStatus = nil }
+        }
+        .alert("Couldn't Save", isPresented: .constant(saveStatus == .failed)) {
+            Button("OK", role: .cancel) { saveStatus = nil }
+        } message: {
+            Text("Allow photo access in Settings to save your QR code.")
+        }
     }
 
     // MARK: - My QR
 
+    private var myQRImage: UIImage? {
+        QRCodeGenerator.image(for: TradePayload.current(store).url().absoluteString)
+    }
+
     private var myQR: some View {
         VStack(spacing: 20) {
             Spacer()
-            if let image = QRCodeGenerator.image(for: TradePayload.current(store).url().absoluteString) {
+            if let image = myQRImage {
                 Image(uiImage: image)
                     .interpolation(.none)
                     .resizable()
@@ -65,6 +94,13 @@ struct TradeView: View {
                     .frame(maxWidth: 280)
                     .padding()
                     .background(.white, in: RoundedRectangle(cornerRadius: 16))
+
+                Button {
+                    save(image)
+                } label: {
+                    Label("Save to Photos", systemImage: "square.and.arrow.down")
+                }
+                .buttonStyle(.bordered)
             }
             Text("Have another collector scan this to find stickers you can trade.")
                 .font(.subheadline)
@@ -74,6 +110,12 @@ struct TradeView: View {
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
+    private func save(_ image: UIImage) {
+        Task {
+            saveStatus = await PhotoLibrarySaver.save(image) ? .saved : .failed
+        }
     }
 
     // MARK: - Scan
@@ -88,6 +130,19 @@ struct TradeView: View {
         } else {
             cameraUnavailable
         }
+    }
+
+    /// Decodes a QR from a photo the user picked from their library.
+    private func scanPicked(_ item: PhotosPickerItem) async {
+        defer { pickerItem = nil }
+        guard let data = try? await item.loadTransferable(type: Data.self),
+              let image = UIImage(data: data),
+              let string = QRCodeGenerator.decode(image),
+              let url = URL(string: string) else {
+            showInvalid = true
+            return
+        }
+        handle(url: url)
     }
 
     private var cameraUnavailable: some View {

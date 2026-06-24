@@ -17,4 +17,19 @@ enum QRCodeGenerator {
         guard let cgImage = context.createCGImage(scaled, from: scaled.extent) else { return nil }
         return UIImage(cgImage: cgImage)
     }
+
+    /// Reads the first QR payload found in a still image (e.g. one picked from
+    /// the photo library), or `nil` if none.
+    static func decode(_ image: UIImage) -> String? {
+        guard let ciImage = CIImage(image: image)
+            ?? image.cgImage.map(CIImage.init) else { return nil }
+        let detector = CIDetector(ofType: CIDetectorTypeQRCode,
+                                  context: context,
+                                  options: [CIDetectorAccuracy: CIDetectorAccuracyHigh])
+        let features = detector?.features(in: ciImage) ?? []
+        for case let qr as CIQRCodeFeature in features {
+            if let message = qr.messageString { return message }
+        }
+        return nil
+    }
 }
