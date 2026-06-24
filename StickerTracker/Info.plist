@@ -6,10 +6,10 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>com.ismailgunduz.PaniniStickerTracker.trade</string>
+			<string>com.ismailgunduz.StickerTracker.trade</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>panini</string>
+				<string>stickertracker</string>
 			</array>
 		</dict>
 	</array>

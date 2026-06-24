@@ -48,7 +48,7 @@ struct TradeView: View {
         .alert("Invalid QR code", isPresented: $showInvalid) {
             Button("OK", role: .cancel) {}
         } message: {
-            Text("This QR code isn't a Panini trade code.")
+            Text("This QR code isn't a Sticker Tracker trade code.")
         }
     }
 

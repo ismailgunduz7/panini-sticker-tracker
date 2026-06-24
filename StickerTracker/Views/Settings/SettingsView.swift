@@ -62,7 +62,7 @@ struct SettingsView: View {
                         showingResetConfirmation = true
                     }
                 } footer: {
-                    Text("FIFA World Cup 2026™ Panini sticker album · 992 stickers")
+                    Text("FIFA World Cup 2026™ sticker album · 992 stickers")
                 }
             }
             .navigationTitle("Settings")

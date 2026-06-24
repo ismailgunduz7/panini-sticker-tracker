@@ -1,6 +1,6 @@
 //
-//  PaniniStickerTrackerApp.swift
-//  PaniniStickerTracker
+//  StickerTrackerApp.swift
+//  StickerTracker
 //
 //  Created by Ismail on 11.06.2026.
 //
@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 @main
-struct PaniniStickerTrackerApp: App {
+struct StickerTrackerApp: App {
     private let container: ModelContainer
     @State private var store: CollectionStore
     @State private var achievementStore: AchievementStore

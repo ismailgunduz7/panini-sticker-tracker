@@ -9,7 +9,7 @@ struct AlbumPage: Identifiable, Hashable, Sendable {
     var id: Int { number }
 }
 
-/// The complete, immutable definition of the FIFA World Cup 2026 Panini album.
+/// The complete, immutable definition of the FIFA World Cup 2026 sticker album.
 /// Static data only — collection state lives in the persistence layer.
 enum AlbumDefinition {
 

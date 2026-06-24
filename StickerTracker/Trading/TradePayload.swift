@@ -11,7 +11,7 @@ struct TradePayload: Equatable {
     /// Bumped whenever the wire format or `orderedStickerCodes` ordering changes,
     /// so an incompatible QR can be rejected rather than misread.
     static let version: UInt8 = 1
-    static let scheme = "panini"
+    static let scheme = "stickertracker"
     static let host = "trade"
 
     /// Builds the payload for the local collection.
@@ -27,7 +27,7 @@ struct TradePayload: Equatable {
 
     // MARK: - Encoding
 
-    /// `panini://trade?v=1&d=<base64url>` where the data is a version byte
+    /// `stickertracker://trade?v=1&d=<base64url>` where the data is a version byte
     /// followed by an owned bitmask and a duplicates bitmask.
     func url() -> URL {
         var data = Data([Self.version])
