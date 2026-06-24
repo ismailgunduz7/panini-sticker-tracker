@@ -16,11 +16,20 @@ enum AppearancePreference: String, CaseIterable, Identifiable {
 
 struct RootTabView: View {
     @AppStorage("appearancePreference") private var appearanceRaw = AppearancePreference.system.rawValue
+    @State private var incomingTrade: IncomingTrade?
+
+    private struct IncomingTrade: Identifiable {
+        let id = UUID()
+        let payload: TradePayload
+    }
 
     var body: some View {
         TabView {
             Tab("Album", systemImage: "book.pages") {
                 HomeView()
+            }
+            Tab("Trade", systemImage: "arrow.left.arrow.right") {
+                NavigationStack { TradeView() }
             }
             Tab("Stats", systemImage: "chart.bar.fill") {
                 StatsView()
@@ -34,6 +43,14 @@ struct RootTabView: View {
         }
         .preferredColorScheme(AppearancePreference(rawValue: appearanceRaw)?.colorScheme)
         .achievementOverlay()
+        .onOpenURL { url in
+            if let payload = TradePayload.from(url: url) {
+                incomingTrade = IncomingTrade(payload: payload)
+            }
+        }
+        .sheet(item: $incomingTrade) { trade in
+            TradeResultView(theirs: trade.payload)
+        }
     }
 }
 

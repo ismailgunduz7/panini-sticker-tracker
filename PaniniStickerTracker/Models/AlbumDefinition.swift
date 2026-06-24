@@ -129,6 +129,15 @@ enum AlbumDefinition {
             .union(fwcStickers.map(\.code))
             .union(extraStickerCodes)
 
+    /// Canonical, stable ordering of every sticker code (992 entries). Defines
+    /// each sticker's bit position when a collection is packed into a QR payload,
+    /// so this order must never change without bumping the payload version.
+    static let orderedStickerCodes: [String] =
+        fwcStickers.map(\.code)
+            + countries.flatMap(\.stickerCodes)
+            + [specialSticker.code]
+            + cocaColaStickers.map(\.code)
+
     /// Player stickers across all countries (index 2…20, excluding 1 & 13).
     static let playerStickerCodes: Set<String> =
         Set(countries.flatMap { country in
