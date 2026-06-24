@@ -44,6 +44,7 @@ struct DuplicatesView: View {
     @AppStorage("duplicatesSortField") private var sortFieldRaw = DuplicateSortField.albumOrder.rawValue
     @AppStorage("duplicatesSortAscending") private var sortAscending = true
     @State private var showingAdd = false
+    @State private var showingScanner = false
 
     private var sortField: DuplicateSortField {
         DuplicateSortField(rawValue: sortFieldRaw) ?? .albumOrder
@@ -106,7 +107,17 @@ struct DuplicatesView: View {
         .sheet(isPresented: $showingAdd) {
             AddDuplicateSheet()
         }
+        .sheet(isPresented: $showingScanner) {
+            StickerScanSheet()
+        }
         .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    showingScanner = true
+                } label: {
+                    Image(systemName: "camera.viewfinder")
+                }
+            }
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     showingAdd = true

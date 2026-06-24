@@ -29,6 +29,7 @@ struct HomeView: View {
     @State private var searchText = ""
     @AppStorage("homeSortField") private var sortFieldRaw = CountrySortField.albumOrder.rawValue
     @AppStorage("homeSortAscending") private var sortAscending = true
+    @State private var showingScanner = false
 
     private var sortField: CountrySortField {
         CountrySortField(rawValue: sortFieldRaw) ?? .albumOrder
@@ -104,7 +105,17 @@ struct HomeView: View {
             .navigationDestination(for: Country.self) { CountryDetailView(country: $0) }
             .navigationDestination(for: SpecialSection.self) { SpecialDetailView(section: $0) }
             .searchable(text: $searchText, prompt: Text("Search country"))
+            .sheet(isPresented: $showingScanner) {
+                StickerScanSheet()
+            }
             .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showingScanner = true
+                    } label: {
+                        Image(systemName: "camera.viewfinder")
+                    }
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink {
                         DuplicatesView()
