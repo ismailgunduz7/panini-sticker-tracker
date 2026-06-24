@@ -35,6 +35,10 @@ struct HomeView: View {
         CountrySortField(rawValue: sortFieldRaw) ?? .albumOrder
     }
 
+    private var shareText: CollectionShareText {
+        CollectionShareText(store: store)
+    }
+
     private let columns = [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)]
 
     private var filteredCountries: [Country] {
@@ -121,6 +125,17 @@ struct HomeView: View {
                         DuplicatesView()
                     } label: {
                         Image(systemName: "doc.on.doc")
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Menu {
+                        ForEach(ShareScope.allCases) { scope in
+                            ShareLink(item: shareText.text(for: scope)) {
+                                Label(scope.menuLabel, systemImage: scope.systemImage)
+                            }
+                        }
+                    } label: {
+                        Image(systemName: "square.and.arrow.up")
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
