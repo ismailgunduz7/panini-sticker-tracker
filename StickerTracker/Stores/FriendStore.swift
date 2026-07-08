@@ -150,4 +150,84 @@ final class FriendStore {
         _ = try? await client.rpc("remove_friendship", params: Params(p_other: userId)).execute()
         await refresh()
     }
+
+    // MARK: - Friend collections
+
+    /// A friend's collection as far as their privacy setting allows, shaped
+    /// as a TradePayload so the existing TradeMatch pipeline applies as-is.
+    struct FriendCollection {
+        let payload: TradePayload
+        /// Album progress; only known when the friend shares the full album.
+        let ownedCount: Int?
+        let lastUpdated: Date?
+    }
+
+    /// Fetches what a friend's privacy setting exposes via the
+    /// get_friend_collection RPC and reshapes it for TradeMatch.
+    func loadCollection(of friendId: UUID) async throws -> FriendCollection {
+        struct EntryRow: Codable, Sendable {
+            let code: String
+            let isOwned: Bool
+            let duplicateCount: Int
+
+            enum CodingKeys: String, CodingKey {
+                case code
+                case isOwned = "is_owned"
+                case duplicateCount = "duplicate_count"
+            }
+        }
+        struct ProfileRow: Codable, Sendable {
+            let shareFullAlbum: Bool
+
+            enum CodingKeys: String, CodingKey {
+                case shareFullAlbum = "share_full_album"
+            }
+        }
+        struct Params: Encodable {
+            let p_friend: UUID
+        }
+
+        // The friend's privacy setting decides how to interpret the rows;
+        // their profile row is readable thanks to the friends-read RLS policy.
+        let profiles: [ProfileRow] = try await client.from("profiles")
+            .select("share_full_album")
+            .eq("id", value: friendId)
+            .execute().value
+        guard let sharesFullAlbum = profiles.first?.shareFullAlbum else {
+            throw RequestError.other
+        }
+
+        let rows: [EntryRow] = try await client
+            .rpc("get_friend_collection", params: Params(p_friend: friendId))
+            .execute().value
+
+        let duplicates = Set(rows.filter { $0.duplicateCount > 0 }.map(\.code))
+        let owned: Set<String>
+        let ownedCount: Int?
+        if sharesFullAlbum {
+            // Full album: rows are the friend's real (lazily created) entries;
+            // absent codes are simply not owned.
+            owned = Set(rows.filter(\.isOwned).map(\.code))
+            ownedCount = owned.count
+        } else {
+            // Intersection mode: is_owned=false rows are explicit "friend
+            // needs this" markers for the caller's spares. Every other code is
+            // treated as owned so TradeMatch's set subtraction excludes it —
+            // fine, because those codes never appear in the caller's spares.
+            let needsMarkers = Set(rows.filter { !$0.isOwned }.map(\.code))
+            owned = Set(AlbumDefinition.orderedStickerCodes).subtracting(needsMarkers)
+            ownedCount = nil
+        }
+
+        let lastUpdatedRaw: String? = try? await client
+            .rpc("get_friend_last_updated", params: Params(p_friend: friendId))
+            .execute().value
+        let lastUpdated = lastUpdatedRaw.flatMap(PostgresTimestamp.parse)
+
+        return FriendCollection(
+            payload: TradePayload(owned: owned, duplicates: duplicates),
+            ownedCount: ownedCount,
+            lastUpdated: lastUpdated
+        )
+    }
 }

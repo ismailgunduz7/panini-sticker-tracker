@@ -110,12 +110,16 @@ struct FriendsView: View {
                         .foregroundStyle(.secondary)
                 } else {
                     ForEach(friendStore.friends) { friend in
-                        nameLabel(friend)
-                            .swipeActions {
-                                Button("Remove", role: .destructive) {
-                                    friendPendingRemoval = friend
-                                }
+                        NavigationLink {
+                            FriendDetailView(friend: friend)
+                        } label: {
+                            nameLabel(friend)
+                        }
+                        .swipeActions {
+                            Button("Remove", role: .destructive) {
+                                friendPendingRemoval = friend
                             }
+                        }
                     }
                 }
             }
