@@ -104,12 +104,22 @@ struct TradeView: View {
                     .padding()
                     .background(.white, in: RoundedRectangle(cornerRadius: 16))
 
-                Button {
-                    save(image)
-                } label: {
-                    Label("Save to Photos", systemImage: "square.and.arrow.down")
+                HStack(spacing: 12) {
+                    Button {
+                        save(image)
+                    } label: {
+                        Label("Save to Photos", systemImage: "square.and.arrow.down")
+                    }
+                    .buttonStyle(.bordered)
+
+                    ShareLink(
+                        item: Image(uiImage: image),
+                        preview: SharePreview("My Trade QR", image: Image(uiImage: image))
+                    ) {
+                        Label("Share", systemImage: "square.and.arrow.up")
+                    }
+                    .buttonStyle(.bordered)
                 }
-                .buttonStyle(.bordered)
             }
             Text("Have another collector scan this to find stickers you can trade.")
                 .font(.subheadline)
