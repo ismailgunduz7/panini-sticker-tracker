@@ -16,6 +16,7 @@ enum AppearancePreference: String, CaseIterable, Identifiable {
 
 struct RootTabView: View {
     @AppStorage("appearancePreference") private var appearanceRaw = AppearancePreference.system.rawValue
+    @Environment(FriendStore.self) private var friendStore
     @State private var incomingTrade: IncomingTrade?
 
     private struct IncomingTrade: Identifiable {
@@ -31,6 +32,7 @@ struct RootTabView: View {
             Tab("Trade", systemImage: "arrow.left.arrow.right") {
                 NavigationStack { TradeView() }
             }
+            .badge(friendStore.pendingBadgeCount)
             Tab("Stats", systemImage: "chart.bar.fill") {
                 StatsView()
             }
@@ -58,6 +60,8 @@ struct RootTabView: View {
     RootTabView()
         .environment(CollectionStore(repository: PreviewRepository()))
         .environment(AchievementStore(repository: PreviewAchievementRepository()))
+        .environment(AccountStore(client: SupabaseService.client))
+        .environment(FriendStore(client: SupabaseService.client))
 }
 
 /// In-memory repository for previews.

@@ -8,7 +8,7 @@ import VisionKit
 struct TradeView: View {
     @Environment(CollectionStore.self) private var store
 
-    private enum Mode: Hashable { case myQR, scan }
+    private enum Mode: Hashable { case friends, myQR, scan }
     private enum SaveStatus { case saved, failed }
 
     @State private var mode: Mode = .myQR
@@ -31,6 +31,7 @@ struct TradeView: View {
     var body: some View {
         VStack(spacing: 0) {
             Picker("Mode", selection: $mode) {
+                Text("Friends").tag(Mode.friends)
                 Text("My QR").tag(Mode.myQR)
                 Text("Scan").tag(Mode.scan)
             }
@@ -38,6 +39,7 @@ struct TradeView: View {
             .padding()
 
             switch mode {
+            case .friends: FriendsView()
             case .myQR: myQR
             case .scan: scanner
             }
@@ -184,4 +186,6 @@ struct TradeView: View {
         TradeView()
     }
     .environment(CollectionStore(repository: PreviewRepository()))
+    .environment(AccountStore(client: SupabaseService.client))
+    .environment(FriendStore(client: SupabaseService.client))
 }

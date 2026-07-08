@@ -15,6 +15,7 @@ struct StickerTrackerApp: App {
     @State private var store: CollectionStore
     @State private var achievementStore: AchievementStore
     @State private var accountStore: AccountStore
+    @State private var friendStore: FriendStore
     @Environment(\.scenePhase) private var scenePhase
 
     init() {
@@ -28,6 +29,7 @@ struct StickerTrackerApp: App {
                 repository: LocalAchievementRepository(context: container.mainContext)
             )
             let accountStore = AccountStore(client: SupabaseService.client)
+            let friendStore = FriendStore(client: SupabaseService.client)
             let syncEngine = SyncEngine(client: SupabaseService.client, store: store)
             self.syncEngine = syncEngine
 
@@ -38,17 +40,20 @@ struct StickerTrackerApp: App {
                 achievementStore.evaluate(entries: entries)
                 syncEngine.schedulePush()
             }
-            accountStore.onSignedIn = { [store, syncEngine] in
+            accountStore.onSignedIn = { [store, syncEngine, friendStore] in
                 store.preservesResetTombstones = true
                 syncEngine.syncNow()
+                Task { await friendStore.refresh() }
             }
-            accountStore.onSignedOut = { [store] in
+            accountStore.onSignedOut = { [store, friendStore] in
                 store.preservesResetTombstones = false
+                friendStore.clear()
             }
 
             _store = State(initialValue: store)
             _achievementStore = State(initialValue: achievementStore)
             _accountStore = State(initialValue: accountStore)
+            _friendStore = State(initialValue: friendStore)
         } catch {
             fatalError("Failed to set up persistence: \(error)")
         }
@@ -60,6 +65,7 @@ struct StickerTrackerApp: App {
                 .environment(store)
                 .environment(achievementStore)
                 .environment(accountStore)
+                .environment(friendStore)
                 .task {
                     await store.load()
                     await achievementStore.load()
@@ -68,7 +74,12 @@ struct StickerTrackerApp: App {
                     await accountStore.bootstrap()
                 }
                 .onChange(of: scenePhase) { _, newPhase in
-                    if newPhase == .active { syncEngine.syncNow() }
+                    if newPhase == .active {
+                        syncEngine.syncNow()
+                        if accountStore.profile != nil {
+                            Task { await friendStore.refresh() }
+                        }
+                    }
                 }
         }
         .modelContainer(container)
