@@ -3,6 +3,16 @@ import SwiftUI
 struct StatsView: View {
     @Environment(CollectionStore.self) private var store
     @AppStorage("includeExtrasInStats") private var includeExtras = true
+    @State private var typeBreakdown: StickerTypeBreakdown?
+
+    /// A per-country sticker type whose collected/missing breakdown can be
+    /// shown from the stats list (federation logos, team photos).
+    private struct StickerTypeBreakdown: Identifiable {
+        let id: String
+        let title: LocalizedStringKey
+        /// The sticker's number within each country's strip.
+        let stickerNumber: Int
+    }
 
     private var stats: AlbumStats {
         StatsCalculator.compute(entries: store.entries, includeExtras: includeExtras)
@@ -40,10 +50,12 @@ struct StatsView: View {
                                stat: stats.leastCollectedCountry, of: Country.stickersPerCountry)
                     statRow("checkmark.seal.fill", .green, "Completed Countries",
                             value: "\(stats.completedCountryCount) / \(AlbumDefinition.countries.count)")
-                    statRow("shield.fill", .indigo, "Federation Logos",
-                            value: "\(stats.federationLogosOwned) / \(AlbumDefinition.countries.count)")
-                    statRow("person.3.fill", .teal, "Team Photos",
-                            value: "\(stats.teamPhotosOwned) / \(AlbumDefinition.countries.count)")
+                    breakdownRow("shield.fill", .indigo, "Federation Logos",
+                                 value: "\(stats.federationLogosOwned) / \(AlbumDefinition.countries.count)",
+                                 breakdown: StickerTypeBreakdown(id: "federation", title: "Federation Logos", stickerNumber: 1))
+                    breakdownRow("person.3.fill", .teal, "Team Photos",
+                                 value: "\(stats.teamPhotosOwned) / \(AlbumDefinition.countries.count)",
+                                 breakdown: StickerTypeBreakdown(id: "team", title: "Team Photos", stickerNumber: 13))
                 }
 
                 Section("Pages") {
@@ -112,6 +124,9 @@ struct StatsView: View {
                 }
             }
             .navigationTitle("Stats")
+            .sheet(item: $typeBreakdown) { breakdown in
+                StickerTypeBreakdownView(title: breakdown.title, stickerNumber: breakdown.stickerNumber)
+            }
         }
     }
 
@@ -129,6 +144,26 @@ struct StatsView: View {
         HStack {
             iconBadge(symbol, color)
             Text(title)
+            Spacer()
+            Text(verbatim: value)
+                .font(.subheadline.weight(.semibold).monospacedDigit())
+                .foregroundStyle(.secondary)
+        }
+    }
+
+    private func breakdownRow(_ symbol: String, _ color: Color, _ title: LocalizedStringKey,
+                              value: String, breakdown: StickerTypeBreakdown) -> some View {
+        HStack {
+            iconBadge(symbol, color)
+            Text(title)
+            Button {
+                typeBreakdown = breakdown
+            } label: {
+                Image(systemName: "info.circle")
+                    .foregroundStyle(.secondary)
+            }
+            .buttonStyle(.borderless)
+            .accessibilityLabel("Show collected and missing countries")
             Spacer()
             Text(verbatim: value)
                 .font(.subheadline.weight(.semibold).monospacedDigit())
