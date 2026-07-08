@@ -47,6 +47,13 @@ struct TradeView: View {
         .navigationTitle("Trade")
         .navigationBarTitleDisplayMode(.inline)
         .background(Color(.systemGroupedBackground))
+        .onDisappear {
+            // TabView keeps tab views alive, so the scanner is never
+            // dismantled by a tab switch alone; leaving scan mode here is
+            // what actually releases the camera. Other modes are left as-is
+            // so a navigation push inside Friends doesn't lose the segment.
+            if mode == .scan { mode = .myQR }
+        }
         .task { await requestCameraAccessIfNeeded() }
         .toolbar {
             if mode == .scan {
