@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		7CC67E1A2FDA8EF500B021F1 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 7CC67E1B2FDA8EF500B021F1 /* Supabase */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		7CC67E042FDA8EF500B021F1 /* StickerTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StickerTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7CC67E1A2FDA8EF500B021F1 /* Supabase in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +83,7 @@
 			);
 			name = StickerTracker;
 			packageProductDependencies = (
+				7CC67E1B2FDA8EF500B021F1 /* Supabase */,
 			);
 			productName = StickerTracker;
 			productReference = 7CC67E042FDA8EF500B021F1 /* StickerTracker.app */;
@@ -108,6 +114,9 @@
 			);
 			mainGroup = 7CC67DFB2FDA8EF500B021F1;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				7CC67E1C2FDA8EF500B021F1 /* XCRemoteSwiftPackageReference "supabase-swift" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 7CC67E052FDA8EF500B021F1 /* Products */;
 			projectDirPath = "";
@@ -265,6 +274,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = StickerTracker/StickerTracker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 22YS56R987;
@@ -302,6 +312,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = StickerTracker/StickerTracker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 22YS56R987;
@@ -356,6 +367,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7CC67E1C2FDA8EF500B021F1 /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase/supabase-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7CC67E1B2FDA8EF500B021F1 /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7CC67E1C2FDA8EF500B021F1 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7CC67DFC2FDA8EF500B021F1 /* Project object */;
 }

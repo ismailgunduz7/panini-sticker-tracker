@@ -14,6 +14,8 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             List {
+                AccountSectionView()
+
                 Section {
                     Toggle("Include Coca-Cola & Special Stickers", isOn: $includeExtras)
                 } header: {
@@ -85,4 +87,5 @@ struct SettingsView: View {
     SettingsView()
         .environment(CollectionStore(repository: PreviewRepository()))
         .environment(AchievementStore(repository: PreviewAchievementRepository()))
+        .environment(AccountStore(client: SupabaseService.client))
 }

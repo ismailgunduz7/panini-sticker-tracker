@@ -14,6 +14,11 @@ final class CollectionStore {
     /// can re-evaluate. Not invoked during `load()`.
     @ObservationIgnored var onEntriesChanged: (([String: CollectionEntry]) -> Void)?
 
+    /// While an account is linked, a full reset must survive sync: rows are
+    /// zeroed instead of deleted, so the reset wins over the server copy
+    /// rather than the old data merging back on the next pull.
+    @ObservationIgnored var preservesResetTombstones = false
+
     init(repository: CollectionRepository) {
         self.repository = repository
     }
@@ -73,11 +78,39 @@ final class CollectionStore {
     }
 
     func resetAll() {
-        entries = [:]
-        Task { [repository] in
-            try? await repository.resetAll()
+        if preservesResetTombstones, !entries.isEmpty {
+            let now = Date.now
+            for code in entries.keys {
+                entries[code] = CollectionEntry(code: code, isOwned: false, duplicateCount: 0, updatedAt: now)
+            }
+            let zeroed = Array(entries.values)
+            Task { [repository] in
+                for entry in zeroed {
+                    try? await repository.upsert(entry)
+                }
+            }
+        } else {
+            entries = [:]
+            Task { [repository] in
+                try? await repository.resetAll()
+            }
         }
         onEntriesChanged?(entries)
+    }
+
+    /// Applies rows pulled from the server, keeping whichever side of each
+    /// sticker is newer (last-write-wins, mirroring the server-side upsert).
+    func applyRemote(_ remote: [CollectionEntry]) {
+        var changed = false
+        for entry in remote {
+            if let local = entries[entry.code], local.updatedAt >= entry.updatedAt { continue }
+            entries[entry.code] = entry
+            Task { [repository] in
+                try? await repository.upsert(entry)
+            }
+            changed = true
+        }
+        if changed { onEntriesChanged?(entries) }
     }
 
     private func persist(_ entry: CollectionEntry) {
