@@ -1079,6 +1079,114 @@
         }
       }
     },
+    "notif_friend_accept_body" : {
+      "comment" : "Push body when a friend accepts your request. %@ is the actor's @username.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ accepted your friend request"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ arkadaşlık isteğini kabul etti"
+          }
+        }
+      }
+    },
+    "notif_friend_accept_title" : {
+      "comment" : "Push title when a friend accepts your request.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Friend Request Accepted"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arkadaşlık İsteği Kabul Edildi"
+          }
+        }
+      }
+    },
+    "notif_friend_request_body" : {
+      "comment" : "Push body when someone sends you a friend request. %@ is the actor's @username.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ sent you a friend request"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ sana arkadaşlık isteği gönderdi"
+          }
+        }
+      }
+    },
+    "notif_friend_request_title" : {
+      "comment" : "Push title when someone sends you a friend request.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Friend Request"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arkadaşlık İsteği"
+          }
+        }
+      }
+    },
+    "notif_new_trade_body" : {
+      "comment" : "Push body when a friend has new stickers to trade. %@ is the actor's @username.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ has new stickers to trade with you"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ seninle takas edebileceği yeni stickerlara sahip"
+          }
+        }
+      }
+    },
+    "notif_new_trade_title" : {
+      "comment" : "Push title when a friend has new stickers to trade.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Trade"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yeni Takas"
+          }
+        }
+      }
+    },
     "OK" : {
       "localizations" : {
         "tr" : {
