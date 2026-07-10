@@ -370,7 +370,10 @@ Stats belong in `StatsCalculator.compute(entries:includeExtras:)` — not in vie
 
 File format: `YYYYMMDDHHMMSS_NNN_description.sql` in `supabase/migrations/`.
 
-Use the next sequential `NNN` number. Include a header comment explaining the migration's purpose.
+- `YYYYMMDDHHMMSS` is the **real creation timestamp** — get it with `date +%Y%m%d%H%M%S` (existing files use local time; stay consistent). Never invent or round it; a fabricated time can also sort a migration ahead of an earlier one and break apply order.
+- Use the next sequential `NNN` number, and confirm the new timestamp is greater than the latest existing migration's.
+- Include a header comment explaining the migration's purpose.
+- Make statements idempotent where practical (`create or replace function`, `create ... if not exists`, re-issued `grant`s) so a re-run does not fail.
 
 ### RLS & RPCs
 
