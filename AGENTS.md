@@ -6,21 +6,25 @@ Guidance for AI agents working on **Sticker Tracker** — a FIFA World Cup 2026 
 
 Users mark owned stickers and duplicates, browse the album by country, view stats and achievements, scan sticker codes via camera, trade via QR codes, and (with an account) sync their collection to Supabase and find tradable stickers with friends.
 
-| Layer | Technology |
-|-------|------------|
-| UI | SwiftUI (iOS 26+) |
-| Local persistence | SwiftData |
-| State | Swift `Observation` (`@Observable` stores) |
-| Backend | Supabase (auth, Postgres, RLS, RPCs) |
-| Auth | Sign in with Apple |
-| Scanning | VisionKit, AVFoundation |
-| Localization | English (source) + Turkish via `Localizable.xcstrings` |
+
+| Layer             | Technology                                             |
+| ----------------- | ------------------------------------------------------ |
+| UI                | SwiftUI (iOS 26+)                                      |
+| Local persistence | SwiftData                                              |
+| State             | Swift `Observation` (`@Observable` stores)             |
+| Backend           | Supabase (auth, Postgres, RLS, RPCs)                   |
+| Auth              | Sign in with Apple                                     |
+| Scanning          | VisionKit, AVFoundation                                |
+| Localization      | English (source) + Turkish via `Localizable.xcstrings` |
+
 
 **Target:** `StickerTracker` · **Bundle ID:** `com.ismailgunduz.StickerTracker` · **Display name:** `Sticker Tracker`
 
-The Xcode project uses `PBXFileSystemSynchronizedRootGroup` — files added under `StickerTracker/` are picked up automatically; no manual `pbxproj` edits needed.
+The Xcode project uses `PBXFileSystemSynchronizedRootGroup` — files added under `StickerTracker/` are picked up automatically; no manual `pbxproj` edits needed. (Exception: adding an SPM package dependency still requires editing `project.pbxproj` or using Xcode.)
 
 ---
+
+
 
 ## Feature checklist
 
@@ -30,9 +34,14 @@ Living backlog. Add new ideas under **Planned**; move items to **Completed** whe
 - One feature per line; keep descriptions short.
 - Group related items under subheadings when the list grows.
 
+
+
 ### Completed
 
+
+
 #### Album & collection
+
 - [x] Static album definition — 48 countries, FWC, 00, Coca-Cola (992 stickers)
 - [x] Home screen with themed country cards, search, and sort (album order / name / completion)
 - [x] Persisted sort field and direction toggle
@@ -43,61 +52,99 @@ Living backlog. Add new ideas under **Planned**; move items to **Completed** whe
 - [x] SwiftData persistence behind a repository protocol
 - [x] Offline-first usage without an account
 
+
+
 #### Stats
+
 - [x] Total progress, group bars, duplicate count
 - [x] Most/least collected country, closest page, completed pages
 - [x] Toggle to exclude 00 and Coca-Cola from stats
 - [x] Federation logo and team photo breakdown (collected vs missing countries)
 
+
+
 #### Achievements
+
 - [x] Achievement system — first stickers, completions, milestones, duplicate hoarding
 - [x] Toast and confetti on unlock; silent backfill on first launch
 - [x] Revoke achievements when their condition no longer holds
 - [x] Achievements tab
 
+
+
 #### Duplicates
+
 - [x] Duplicates page accessible from home toolbar
 - [x] Independent sort field and direction, persisted
 - [x] Duplicate count steppers and trash-to-remove
 - [x] Instructive empty state
 - [x] Add duplicates directly from the duplicates page
 
+
+
 #### Scanning
+
 - [x] Live camera scanner for stickers and duplicates
 - [x] OCR confusable-character handling and settle-window commit logic
 
+
+
 #### Sharing
+
 - [x] Share owned, missing, or duplicate stickers as plain text
 
+
+
 #### Trading
+
 - [x] QR trading — encode/decode collection payload
 - [x] Scan QR from camera; import QR from Photos; save QR to Photos
 - [x] Share QR image from Trade tab
 - [x] Deep link handling (`stickertracker://trade`)
 
+
+
 #### Account & sync
+
 - [x] Sign in with Apple and profile setup (username, display name)
 - [x] Supabase sync — offline-first, last-write-wins
 - [x] Full-album sharing privacy toggle
 - [x] Sign out and account deletion
 
+
+
 #### Friends
+
 - [x] Search users, send/accept/decline friend requests
 - [x] Friend list with pending-request badge
 - [x] Tradable stickers between friends with privacy-aware collection read
 
+
+
 #### Settings & polish
+
 - [x] Appearance picker (system / light / dark)
 - [x] Sort settings for home and duplicates pages
 - [x] Reset all data
 - [x] English and Turkish localization
 - [x] Portrait-only orientation and app icon
 
+
+
 ### Planned
 
-<!-- Add new ideas here as `- [ ] feature description`. Move to Completed when shipped. -->
+#### Friends & sync
+- [ ] Realtime friend collection updates via Supabase Realtime (live refresh while a friend detail screen is open)
+- [ ] Push notifications for friend requests (APNs + Supabase Edge Function)
+- [ ] Block users (beyond the current decline-blocks-re-request behavior)
+- [ ] Rate limiting / spam protection for username search and friend requests
+
+#### Release readiness
+- [ ] Privacy policy URL and App Store privacy labels covering account + collection sync
 
 ---
+
+
 
 ## Directory structure
 
@@ -121,7 +168,11 @@ Place new code in the folder that matches its responsibility. Do not mix concern
 
 ---
 
+
+
 ## Architecture
+
+
 
 ### Layering
 
@@ -138,15 +189,19 @@ Views  →  @Environment(Store.self)  →  Stores (@Observable)
 - **Repositories** — storage abstraction. DTOs are storage-agnostic. Only `Local*Repository` exists today; protocols are written to allow future backends without changing store code.
 - **Views** — never touch `ModelContext` or Supabase directly. Always go through stores.
 
+
+
 ### Stores
 
-| Store | Responsibility |
-|-------|----------------|
-| `CollectionStore` | Owned/duplicate state, optimistic updates, sync hooks |
-| `AchievementStore` | Unlock/revoke logic, toast queue |
-| `AccountStore` | Supabase auth + profile lifecycle |
-| `FriendStore` | Friendships, search, friend collections |
-| `StatsCalculator` | Pure static functions — stateless stats computation |
+
+| Store              | Responsibility                                        |
+| ------------------ | ----------------------------------------------------- |
+| `CollectionStore`  | Owned/duplicate state, optimistic updates, sync hooks |
+| `AchievementStore` | Unlock/revoke logic, toast queue                      |
+| `AccountStore`     | Supabase auth + profile lifecycle                     |
+| `FriendStore`      | Friendships, search, friend collections               |
+| `StatsCalculator`  | Pure static functions — stateless stats computation   |
+
 
 Wire cross-store callbacks in `StickerTrackerApp.swift` (e.g. `onEntriesChanged`, `onSignedIn`). Use `@ObservationIgnored` on repositories, clients, and callbacks to avoid observation cycles.
 
@@ -160,9 +215,12 @@ Wire cross-store callbacks in `StickerTrackerApp.swift` (e.g. `onEntriesChanged`
 - App works fully without an account.
 - Achievements are local only — never sync to Supabase.
 
+
+
 ### Navigation
 
 - Root: `TabView` in `RootTabView.swift` (Album, Trade, Stats, Achievements, Settings).
+- The Friends UI lives as a segment inside the Trade tab (`Friends | My QR | Scan`) — a sixth tab would overflow into More on iPhone. The pending-request badge sits on the Trade tab.
 - Per-tab `NavigationStack` where needed.
 - Type-safe destinations: `navigationDestination(for: Country.self)`.
 - Sheets for scanning, friend search, trade results, profile setup.
@@ -171,7 +229,11 @@ Wire cross-store callbacks in `StickerTrackerApp.swift` (e.g. `onEntriesChanged`
 
 ---
 
+
+
 ## Swift & SwiftUI conventions
+
+
 
 ### Observation (not ObservableObject)
 
@@ -180,21 +242,29 @@ Wire cross-store callbacks in `StickerTrackerApp.swift` (e.g. `onEntriesChanged`
 - Consume in views with `@Environment(CollectionStore.self)`.
 - Do **not** use `ObservableObject`, `@StateObject`, or `@Published`.
 
+
+
 ### Concurrency
 
 - Project sets `SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor` globally — no explicit `@MainActor` needed.
 - Repository methods are `async`; stores fire `Task { }` for background persist.
 - Use `assertionFailure` on load errors (dev-time signal, not user-facing).
 
+
+
 ### State placement
 
-| Kind | Mechanism |
-|------|-----------|
-| Shared app state | `@Environment` stores |
-| User preferences | `@AppStorage` with string raw values for enums |
-| Ephemeral UI (sheets, selections) | `@State` |
+
+| Kind                              | Mechanism                                      |
+| --------------------------------- | ---------------------------------------------- |
+| Shared app state                  | `@Environment` stores                          |
+| User preferences                  | `@AppStorage` with string raw values for enums |
+| Ephemeral UI (sheets, selections) | `@State`                                       |
+
 
 Known `@AppStorage` keys: `appearancePreference`, `includeExtrasInStats`, `homeSortField`, `homeSortAscending`, `duplicatesSortField`, `duplicatesSortAscending`.
+
+Raw `UserDefaults` keys (not `@AppStorage`): `account.suggestedUsername` / `account.suggestedDisplayName` (Apple sign-in prefills, captured once) and `sync.lastSyncedAt.<userId>` (per-account sync watermark).
 
 ### Localization
 
@@ -218,7 +288,11 @@ Always add Turkish translations in `Localizable.xcstrings` when adding new user-
 
 ---
 
+
+
 ## Naming conventions
+
+
 
 ### Files
 
@@ -237,6 +311,8 @@ Group views by feature under `Views/<Feature>/`.
 - **Classes** — `@Observable` stores, `@Model` entities, repository implementations
 - **Enums** — static catalogs, finite state (`AlbumDefinition`, `AccountStore.Phase`)
 
+
+
 ### Properties
 
 - camelCase throughout.
@@ -245,7 +321,11 @@ Group views by feature under `Views/<Feature>/`.
 
 ---
 
+
+
 ## Key domain rules
+
+
 
 ### AlbumDefinition is the single source of truth
 
@@ -273,7 +353,11 @@ Stats belong in `StatsCalculator.compute(entries:includeExtras:)` — not in vie
 
 ---
 
+
+
 ## Supabase conventions
+
+
 
 ### Migrations
 
@@ -291,12 +375,16 @@ Use the next sequential `NNN` number. Include a header comment explaining the mi
 - `revoke execute from anon, public` + `grant execute to authenticated` on RPCs.
 - Errors via `raise exception 'error_code'` — client parses exception codes from error strings.
 
+
+
 ### iOS ↔ Supabase mapping
 
 - `SupabaseService.client` — shared singleton.
 - Table queries: `.from("profiles").select()...`
 - Use `PostgresTimestamp` for fractional-second ISO8601 wire format.
 - `CodingKeys` for snake_case columns on remote types.
+
+
 
 ### Adding a Supabase feature
 
@@ -308,7 +396,11 @@ Use the next sequential `NNN` number. Include a header comment explaining the mi
 
 ---
 
+
+
 ## Adding new code — checklists
+
+
 
 ### Local persistence
 
@@ -316,6 +408,8 @@ Use the next sequential `NNN` number. Include a header comment explaining the mi
 2. Add `@Model` class + `Local*Repository`.
 3. Register model in `ModelContainer(for:)` in `StickerTrackerApp.swift`.
 4. Wire through an `@Observable` store.
+
+
 
 ### New view
 
@@ -325,6 +419,8 @@ Use the next sequential `NNN` number. Include a header comment explaining the mi
 4. Use `Text(verbatim:)` for sticker/country codes.
 5. Add Turkish translations for new UI strings.
 
+
+
 ### New store method
 
 1. Apply optimistic in-memory update first.
@@ -333,6 +429,8 @@ Use the next sequential `NNN` number. Include a header comment explaining the mi
 4. Keep query helpers as pure reads on `entries`.
 
 ---
+
+
 
 ## Testing & previews
 
@@ -350,6 +448,8 @@ Only add a test target if explicitly requested.
 
 ---
 
+
+
 ## Git commit messages
 
 Use [Conventional Commits](https://www.conventionalcommits.org/):
@@ -360,15 +460,21 @@ Use [Conventional Commits](https://www.conventionalcommits.org/):
 Optional body with details or bullet points.
 ```
 
+
+
 ### Types
 
-| Type | When |
-|------|------|
-| `feat:` | New user-facing feature |
-| `fix:` | Bug fix |
-| `chore:` | Build, config, version bumps, app icon |
+
+| Type        | When                                       |
+| ----------- | ------------------------------------------ |
+| `feat:`     | New user-facing feature                    |
+| `fix:`      | Bug fix                                    |
+| `chore:`    | Build, config, version bumps, app icon     |
 | `refactor:` | Code restructuring without behavior change |
-| `docs:` | Documentation only |
+| `docs:`     | Documentation only                         |
+
+
+
 
 ### Rules
 
@@ -376,6 +482,8 @@ Optional body with details or bullet points.
 - One logical change per commit.
 - Body is optional; use it for non-obvious context or bullet lists.
 - Do **not** word wrap commit messages. Keep each line on a single line — subject, body paragraphs, and bullet items should not be broken mid-sentence to fit a column width.
+
+
 
 ### Examples
 
@@ -390,6 +498,8 @@ docs: add AGENTS.md with project conventions
 ```
 
 ---
+
+
 
 ## What to avoid
 
@@ -406,8 +516,11 @@ docs: add AGENTS.md with project conventions
 
 ---
 
+
+
 ## Error handling
 
 - **Network:** silent fail + retry on next trigger (sync, friends refresh).
 - **User actions:** `LocalizedError` enums with `errorDescription`, or `errorMessage` on `AccountStore`.
 - **Supabase RPC errors:** parse by substring matching on exception codes (e.g. `username_taken`).
+
