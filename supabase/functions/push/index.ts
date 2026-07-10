@@ -86,11 +86,18 @@ Deno.serve(async (req) => {
   if (!user_id || !loc) return new Response("bad request", { status: 400 });
 
   const supabase = createClient(SUPABASE_URL, SERVICE_ROLE);
-  const { data: tokens } = await supabase
+  const { data: tokens, error } = await supabase
     .from("device_tokens")
     .select("token")
     .eq("user_id", user_id);
-  if (!tokens || tokens.length === 0) return new Response("no tokens", { status: 200 });
+  if (error) {
+    console.error("device_tokens query failed", { user_id, hasServiceRole: !!SERVICE_ROLE, error });
+    return new Response("token lookup failed", { status: 500 });
+  }
+  if (!tokens || tokens.length === 0) {
+    console.log("no tokens for user", { user_id, hasServiceRole: !!SERVICE_ROLE });
+    return new Response("no tokens", { status: 200 });
+  }
 
   const jwt = await providerToken();
   const body = JSON.stringify({
@@ -113,6 +120,9 @@ Deno.serve(async (req) => {
         },
         body,
       });
+      if (res.status !== 200) {
+        console.error("apns rejected", { status: res.status, detail: await res.clone().text().catch(() => "") });
+      }
       // 410 Gone or 400 BadDeviceToken => the token is dead; prune it.
       if (res.status === 410) {
         stale.push(token);
