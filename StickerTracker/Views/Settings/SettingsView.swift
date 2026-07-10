@@ -12,80 +12,78 @@ struct SettingsView: View {
     @State private var showingResetConfirmation = false
 
     var body: some View {
-        NavigationStack {
-            List {
-                AccountSectionView()
-
-                Section {
-                    Toggle("Include Coca-Cola & Special Stickers", isOn: $includeExtras)
-                } header: {
-                    Text("Stats")
-                } footer: {
-                    Text("When off, the 00 and Coca-Cola stickers are excluded from all statistics.")
-                }
-
-                Section("Appearance") {
-                    Picker("Appearance", selection: $appearanceRaw) {
-                        Text("System").tag(AppearancePreference.system.rawValue)
-                        Text("Light").tag(AppearancePreference.light.rawValue)
-                        Text("Dark").tag(AppearancePreference.dark.rawValue)
-                    }
-                    .pickerStyle(.segmented)
-                }
-
-                Section("Album Sorting") {
-                    Picker("Sort By", selection: $homeSortFieldRaw) {
-                        ForEach(CountrySortField.allCases) { field in
-                            Text(field.label).tag(field.rawValue)
-                        }
-                    }
-                    Picker("Direction", selection: $homeSortAscending) {
-                        Text("Ascending").tag(true)
-                        Text("Descending").tag(false)
-                    }
-                    .pickerStyle(.segmented)
-                }
-
-                Section("Duplicates Sorting") {
-                    Picker("Sort By", selection: $duplicatesSortFieldRaw) {
-                        ForEach(DuplicateSortField.allCases) { field in
-                            Text(field.label).tag(field.rawValue)
-                        }
-                    }
-                    Picker("Direction", selection: $duplicatesSortAscending) {
-                        Text("Ascending").tag(true)
-                        Text("Descending").tag(false)
-                    }
-                    .pickerStyle(.segmented)
-                }
-
-                Section {
-                    Button("Reset All Data", role: .destructive) {
-                        showingResetConfirmation = true
-                    }
-                } footer: {
-                    Text("FIFA World Cup 2026™ sticker album · 992 stickers")
-                }
+        List {
+            Section {
+                Toggle("Include Coca-Cola & Special Stickers", isOn: $includeExtras)
+            } header: {
+                Text("Stats")
+            } footer: {
+                Text("When off, the 00 and Coca-Cola stickers are excluded from all statistics.")
             }
-            .navigationTitle("Settings")
-            .confirmationDialog(
-                Text("Delete all collection data? This cannot be undone."),
-                isPresented: $showingResetConfirmation,
-                titleVisibility: .visible
-            ) {
+
+            Section("Appearance") {
+                Picker("Appearance", selection: $appearanceRaw) {
+                    Text("System").tag(AppearancePreference.system.rawValue)
+                    Text("Light").tag(AppearancePreference.light.rawValue)
+                    Text("Dark").tag(AppearancePreference.dark.rawValue)
+                }
+                .pickerStyle(.segmented)
+            }
+
+            Section("Album Sorting") {
+                Picker("Sort By", selection: $homeSortFieldRaw) {
+                    ForEach(CountrySortField.allCases) { field in
+                        Text(field.label).tag(field.rawValue)
+                    }
+                }
+                Picker("Direction", selection: $homeSortAscending) {
+                    Text("Ascending").tag(true)
+                    Text("Descending").tag(false)
+                }
+                .pickerStyle(.segmented)
+            }
+
+            Section("Duplicates Sorting") {
+                Picker("Sort By", selection: $duplicatesSortFieldRaw) {
+                    ForEach(DuplicateSortField.allCases) { field in
+                        Text(field.label).tag(field.rawValue)
+                    }
+                }
+                Picker("Direction", selection: $duplicatesSortAscending) {
+                    Text("Ascending").tag(true)
+                    Text("Descending").tag(false)
+                }
+                .pickerStyle(.segmented)
+            }
+
+            Section {
                 Button("Reset All Data", role: .destructive) {
-                    store.resetAll()
-                    achievements.resetAll()
+                    showingResetConfirmation = true
                 }
-                Button("Cancel", role: .cancel) {}
+            } footer: {
+                Text("FIFA World Cup 2026™ sticker album · 992 stickers")
             }
+        }
+        .navigationTitle("Settings")
+        .navigationBarTitleDisplayMode(.inline)
+        .confirmationDialog(
+            Text("Delete all collection data? This cannot be undone."),
+            isPresented: $showingResetConfirmation,
+            titleVisibility: .visible
+        ) {
+            Button("Reset All Data", role: .destructive) {
+                store.resetAll()
+                achievements.resetAll()
+            }
+            Button("Cancel", role: .cancel) {}
         }
     }
 }
 
 #Preview {
-    SettingsView()
-        .environment(CollectionStore(repository: PreviewRepository()))
-        .environment(AchievementStore(repository: PreviewAchievementRepository()))
-        .environment(AccountStore(client: SupabaseService.client))
+    NavigationStack {
+        SettingsView()
+            .environment(CollectionStore(repository: PreviewRepository()))
+            .environment(AchievementStore(repository: PreviewAchievementRepository()))
+    }
 }

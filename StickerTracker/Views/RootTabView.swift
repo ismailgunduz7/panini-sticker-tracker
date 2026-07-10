@@ -36,8 +36,8 @@ struct RootTabView: View {
             Tab("Stats", systemImage: "chart.bar.fill") {
                 StatsView()
             }
-            Tab("Settings", systemImage: "gearshape.fill") {
-                SettingsView()
+            Tab("Account", systemImage: "person.crop.circle.fill") {
+                AccountView()
             }
         }
         .preferredColorScheme(AppearancePreference(rawValue: appearanceRaw)?.colorScheme)

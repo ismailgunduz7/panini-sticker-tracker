@@ -219,8 +219,9 @@ Wire cross-store callbacks in `StickerTrackerApp.swift` (e.g. `onEntriesChanged`
 
 ### Navigation
 
-- Root: `TabView` in `RootTabView.swift` (Album, Trade, Stats, Settings).
+- Root: `TabView` in `RootTabView.swift` (Album, Trade, Stats, Account).
 - Achievements is not a tab; it is pushed from the Stats toolbar (trophy icon).
+- Settings is not a tab; the non-account preferences live on `SettingsView`, pushed from a row on the Account page.
 - The Friends UI lives as a segment inside the Trade tab (`Friends | My QR | Scan`) — a sixth tab would overflow into More on iPhone. The pending-request badge sits on the Trade tab.
 - Per-tab `NavigationStack` where needed.
 - Type-safe destinations: `navigationDestination(for: Country.self)`.
