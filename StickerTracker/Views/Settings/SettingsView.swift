@@ -1,15 +1,12 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @Environment(CollectionStore.self) private var store
-    @Environment(AchievementStore.self) private var achievements
     @AppStorage("includeExtrasInStats") private var includeExtras = true
     @AppStorage("appearancePreference") private var appearanceRaw = AppearancePreference.system.rawValue
     @AppStorage("homeSortField") private var homeSortFieldRaw = CountrySortField.albumOrder.rawValue
     @AppStorage("homeSortAscending") private var homeSortAscending = true
     @AppStorage("duplicatesSortField") private var duplicatesSortFieldRaw = DuplicateSortField.albumOrder.rawValue
     @AppStorage("duplicatesSortAscending") private var duplicatesSortAscending = true
-    @State private var showingResetConfirmation = false
 
     var body: some View {
         List {
@@ -43,7 +40,7 @@ struct SettingsView: View {
                 .pickerStyle(.segmented)
             }
 
-            Section("Duplicates Sorting") {
+            Section {
                 Picker("Sort By", selection: $duplicatesSortFieldRaw) {
                     ForEach(DuplicateSortField.allCases) { field in
                         Text(field.label).tag(field.rawValue)
@@ -54,29 +51,14 @@ struct SettingsView: View {
                     Text("Descending").tag(false)
                 }
                 .pickerStyle(.segmented)
-            }
-
-            Section {
-                Button("Reset All Data", role: .destructive) {
-                    showingResetConfirmation = true
-                }
+            } header: {
+                Text("Duplicates Sorting")
             } footer: {
                 Text("FIFA World Cup 2026™ sticker album · 992 stickers")
             }
         }
         .navigationTitle("Settings")
         .navigationBarTitleDisplayMode(.inline)
-        .confirmationDialog(
-            Text("Delete all collection data? This cannot be undone."),
-            isPresented: $showingResetConfirmation,
-            titleVisibility: .visible
-        ) {
-            Button("Reset All Data", role: .destructive) {
-                store.resetAll()
-                achievements.resetAll()
-            }
-            Button("Cancel", role: .cancel) {}
-        }
     }
 }
 

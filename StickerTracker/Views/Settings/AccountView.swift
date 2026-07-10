@@ -5,7 +5,11 @@ import SwiftUI
 /// pushed `SettingsView` page.
 struct AccountView: View {
     @Environment(AccountStore.self) private var account
+    @Environment(CollectionStore.self) private var store
+    @Environment(AchievementStore.self) private var achievements
     @State private var showingSignOutConfirmation = false
+    @State private var showingDeleteConfirmation = false
+    @State private var showingResetConfirmation = false
 
     var body: some View {
         NavigationStack {
@@ -18,6 +22,36 @@ struct AccountView: View {
                     } label: {
                         Label("Settings", systemImage: "gearshape")
                     }
+                }
+
+                Section {
+                    if case .signedIn = account.phase {
+                        Button("Delete Account", role: .destructive) {
+                            showingDeleteConfirmation = true
+                        }
+                        .alert("Delete Account", isPresented: $showingDeleteConfirmation) {
+                            Button("Delete Account", role: .destructive) {
+                                Task { await account.deleteAccount() }
+                            }
+                            Button("Cancel", role: .cancel) {}
+                        } message: {
+                            Text("Your friendships and online collection are removed permanently. The album on this device is kept.")
+                        }
+                    }
+                    Button("Reset All Data", role: .destructive) {
+                        showingResetConfirmation = true
+                    }
+                    .alert("Reset All Data", isPresented: $showingResetConfirmation) {
+                        Button("Reset All Data", role: .destructive) {
+                            store.resetAll()
+                            achievements.resetAll()
+                        }
+                        Button("Cancel", role: .cancel) {}
+                    } message: {
+                        Text("This deletes all collection data on this device and cannot be undone.")
+                    }
+                } header: {
+                    Text("Danger Zone")
                 }
             }
             .navigationTitle("Account")

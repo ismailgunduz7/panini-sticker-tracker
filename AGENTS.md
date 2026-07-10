@@ -110,7 +110,7 @@ Living backlog. Add new ideas under **Planned**; move items to **Completed** whe
 - [x] Edit display name from the Account page (username stays fixed)
 - [x] Supabase sync — offline-first, last-write-wins
 - [x] Full-album sharing privacy toggle
-- [x] Sign out and account deletion
+- [x] Sign out (Account page toolbar) and account deletion (Danger Zone, centered confirmation)
 
 
 
@@ -126,7 +126,7 @@ Living backlog. Add new ideas under **Planned**; move items to **Completed** whe
 
 - [x] Appearance picker (system / light / dark)
 - [x] Sort settings for home and duplicates pages
-- [x] Reset all data
+- [x] Reset all data (Danger Zone on the Account page, centered confirmation)
 - [x] English and Turkish localization
 - [x] Portrait-only orientation and app icon
 

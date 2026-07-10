@@ -7,7 +7,6 @@ struct AccountSectionView: View {
     @Environment(AccountStore.self) private var account
     @Environment(\.colorScheme) private var colorScheme
     @State private var showingProfileSetup = false
-    @State private var showingDeleteConfirmation = false
     @State private var hasAutoOpenedSetup = false
     @State private var editingDisplayName = ""
     @State private var showingNameEditor = false
@@ -74,19 +73,6 @@ struct AccountSectionView: View {
                     Text("Your friends see this name alongside your username.")
                 }
                 Toggle("Share Full Album with Friends", isOn: shareFullAlbumBinding(profile))
-                Button("Delete Account", role: .destructive) {
-                    showingDeleteConfirmation = true
-                }
-                .confirmationDialog(
-                    Text("Delete your account? Your friendships and online collection are removed permanently. The album on this device is kept."),
-                    isPresented: $showingDeleteConfirmation,
-                    titleVisibility: .visible
-                ) {
-                    Button("Delete Account", role: .destructive) {
-                        Task { await account.deleteAccount() }
-                    }
-                    Button("Cancel", role: .cancel) {}
-                }
             }
             if let message = account.errorMessage {
                 Text(message)
