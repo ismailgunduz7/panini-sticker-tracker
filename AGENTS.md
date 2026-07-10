@@ -119,6 +119,7 @@ Living backlog. Add new ideas under **Planned**; move items to **Completed** whe
 - [x] Dedicated Friends tab (search, send/accept/decline requests, friend list)
 - [x] Pending-request badge on the Friends tab
 - [x] Tradable stickers between friends with privacy-aware collection read
+- [x] Push notifications for friend requests and acceptances (APNs via Supabase Edge Function)
 
 
 
@@ -136,7 +137,6 @@ Living backlog. Add new ideas under **Planned**; move items to **Completed** whe
 
 #### Friends & sync
 - [ ] Realtime friend collection updates via Supabase Realtime (live refresh while a friend detail screen is open)
-- [ ] Push notifications for friend requests (APNs + Supabase Edge Function)
 - [ ] Block users (beyond the current decline-blocks-re-request behavior)
 - [ ] Rate limiting / spam protection for username search and friend requests
 
@@ -160,12 +160,16 @@ StickerTracker/
 ├── Scanning/                   # Camera session, code parser
 ├── Trading/                    # QR payload, trade matching
 ├── Sharing/                    # Plain-text share builders
+├── Notifications/              # Push: AppDelegate, PushNotificationService, router
 └── Resources/Localizable.xcstrings
 
 supabase/migrations/            # Numbered SQL migrations
+supabase/functions/             # Deno Edge Functions (e.g. push → APNs)
 ```
 
 Place new code in the folder that matches its responsibility. Do not mix concerns across layers.
+
+**Push notifications:** device tokens live in `device_tokens` (registered/unregistered via RPC after sign-in). Friend RPCs call `notify_user`, which posts (via `pg_net`, fire-and-forget, with Vault-stored URL + secret) to the `push` Edge Function, which delivers a localized APNs alert using `notif_*` loc-keys resolved on-device.
 
 ---
 
