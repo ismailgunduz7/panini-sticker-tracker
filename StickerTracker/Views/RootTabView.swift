@@ -17,6 +17,7 @@ enum AppearancePreference: String, CaseIterable, Identifiable {
 struct RootTabView: View {
     @AppStorage("appearancePreference") private var appearanceRaw = AppearancePreference.system.rawValue
     @Environment(FriendStore.self) private var friendStore
+    @Environment(NotificationRouter.self) private var router
     @State private var incomingTrade: IncomingTrade?
 
     private struct IncomingTrade: Identifiable {
@@ -25,21 +26,22 @@ struct RootTabView: View {
     }
 
     var body: some View {
-        TabView {
-            Tab("Album", systemImage: "book.pages") {
+        @Bindable var router = router
+        TabView(selection: $router.selectedTab) {
+            Tab("Album", systemImage: "book.pages", value: RootTab.album) {
                 HomeView()
             }
-            Tab("Trade", systemImage: "arrow.left.arrow.right") {
+            Tab("Trade", systemImage: "arrow.left.arrow.right", value: RootTab.trade) {
                 NavigationStack { TradeView() }
             }
-            Tab("Friends", systemImage: "person.2.fill") {
+            Tab("Friends", systemImage: "person.2.fill", value: RootTab.friends) {
                 NavigationStack { FriendsView() }
             }
             .badge(friendStore.pendingBadgeCount)
-            Tab("Stats", systemImage: "chart.bar.fill") {
+            Tab("Stats", systemImage: "chart.bar.fill", value: RootTab.stats) {
                 StatsView()
             }
-            Tab("Account", systemImage: "person.crop.circle.fill") {
+            Tab("Account", systemImage: "person.crop.circle.fill", value: RootTab.account) {
                 AccountView()
             }
         }
@@ -62,6 +64,7 @@ struct RootTabView: View {
         .environment(AchievementStore(repository: PreviewAchievementRepository()))
         .environment(AccountStore(client: SupabaseService.client))
         .environment(FriendStore(client: SupabaseService.client))
+        .environment(NotificationRouter())
 }
 
 /// In-memory repository for previews.
