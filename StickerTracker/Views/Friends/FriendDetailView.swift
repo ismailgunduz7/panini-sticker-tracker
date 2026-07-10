@@ -7,7 +7,9 @@ struct FriendDetailView: View {
     let friend: FriendStore.Friendship
 
     @Environment(FriendStore.self) private var friendStore
+    @Environment(CollectionStore.self) private var store
     @State private var loadState: LoadState = .loading
+    @State private var startingTrade = false
 
     private enum LoadState {
         case loading
@@ -59,6 +61,12 @@ struct FriendDetailView: View {
                 .refreshable {
                     await load()
                 }
+                .safeAreaInset(edge: .bottom) {
+                    if hasMatches(with: collection.payload) { startTradingBar(collection.payload) }
+                }
+                .sheet(isPresented: $startingTrade) {
+                    TradeSessionView(theirs: collection.payload, title: "@\(friend.username)")
+                }
             }
         }
         .navigationTitle("@\(friend.username)")
@@ -66,6 +74,24 @@ struct FriendDetailView: View {
         .task {
             await load()
         }
+    }
+
+    private func hasMatches(with theirs: TradePayload) -> Bool {
+        let mine = TradePayload.current(store)
+        return !TradeMatch.theyGiveYou(mine: mine, theirs: theirs).isEmpty
+            || !TradeMatch.youGiveThem(mine: mine, theirs: theirs).isEmpty
+    }
+
+    private func startTradingBar(_ theirs: TradePayload) -> some View {
+        Button {
+            startingTrade = true
+        } label: {
+            Label("Start Trading", systemImage: "arrow.left.arrow.right")
+                .frame(maxWidth: .infinity)
+        }
+        .buttonStyle(.borderedProminent)
+        .padding()
+        .background(.bar)
     }
 
     private func load() async {
