@@ -10,33 +10,31 @@ struct AchievementsView: View {
     }
 
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(spacing: 20) {
-                    summaryHeader
+        ScrollView {
+            VStack(spacing: 20) {
+                summaryHeader
 
-                    ForEach(AchievementCategory.allCases) { category in
-                        let items = Achievement.all.filter { $0.category == category }
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text(category.title)
-                                .font(.headline)
-                                .padding(.horizontal, 4)
-                            LazyVGrid(columns: columns, spacing: 12) {
-                                ForEach(items) { achievement in
-                                    AchievementBadgeView(
-                                        achievement: achievement,
-                                        unlockedAt: achievements.unlocked[achievement.id]
-                                    )
-                                }
+                ForEach(AchievementCategory.allCases) { category in
+                    let items = Achievement.all.filter { $0.category == category }
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text(category.title)
+                            .font(.headline)
+                            .padding(.horizontal, 4)
+                        LazyVGrid(columns: columns, spacing: 12) {
+                            ForEach(items) { achievement in
+                                AchievementBadgeView(
+                                    achievement: achievement,
+                                    unlockedAt: achievements.unlocked[achievement.id]
+                                )
                             }
                         }
                     }
                 }
-                .padding()
             }
-            .background(Color(.systemGroupedBackground))
-            .navigationTitle("Achievements")
+            .padding()
         }
+        .background(Color(.systemGroupedBackground))
+        .navigationTitle("Achievements")
     }
 
     private var summaryHeader: some View {
@@ -110,6 +108,8 @@ struct AchievementBadgeView: View {
 }
 
 #Preview {
-    AchievementsView()
-        .environment(AchievementStore(repository: PreviewAchievementRepository()))
+    NavigationStack {
+        AchievementsView()
+            .environment(AchievementStore(repository: PreviewAchievementRepository()))
+    }
 }

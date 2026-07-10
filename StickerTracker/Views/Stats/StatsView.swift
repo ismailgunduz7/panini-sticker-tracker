@@ -124,6 +124,15 @@ struct StatsView: View {
                 }
             }
             .navigationTitle("Stats")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink {
+                        AchievementsView()
+                    } label: {
+                        Image(systemName: "trophy.fill")
+                    }
+                }
+            }
             .sheet(item: $typeBreakdown) { breakdown in
                 StickerTypeBreakdownView(title: breakdown.title, stickerNumber: breakdown.stickerNumber)
             }

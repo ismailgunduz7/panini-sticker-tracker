@@ -36,9 +36,6 @@ struct RootTabView: View {
             Tab("Stats", systemImage: "chart.bar.fill") {
                 StatsView()
             }
-            Tab("Achievements", systemImage: "trophy.fill") {
-                AchievementsView()
-            }
             Tab("Settings", systemImage: "gearshape.fill") {
                 SettingsView()
             }

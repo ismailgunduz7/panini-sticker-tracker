@@ -68,7 +68,7 @@ Living backlog. Add new ideas under **Planned**; move items to **Completed** whe
 - [x] Achievement system — first stickers, completions, milestones, duplicate hoarding
 - [x] Toast and confetti on unlock; silent backfill on first launch
 - [x] Revoke achievements when their condition no longer holds
-- [x] Achievements tab
+- [x] Achievements screen (opened from the Stats toolbar)
 
 
 
@@ -219,7 +219,8 @@ Wire cross-store callbacks in `StickerTrackerApp.swift` (e.g. `onEntriesChanged`
 
 ### Navigation
 
-- Root: `TabView` in `RootTabView.swift` (Album, Trade, Stats, Achievements, Settings).
+- Root: `TabView` in `RootTabView.swift` (Album, Trade, Stats, Settings).
+- Achievements is not a tab; it is pushed from the Stats toolbar (trophy icon).
 - The Friends UI lives as a segment inside the Trade tab (`Friends | My QR | Scan`) — a sixth tab would overflow into More on iPhone. The pending-request badge sits on the Trade tab.
 - Per-tab `NavigationStack` where needed.
 - Type-safe destinations: `navigationDestination(for: Country.self)`.
