@@ -32,6 +32,9 @@ struct RootTabView: View {
             Tab("Trade", systemImage: "arrow.left.arrow.right") {
                 NavigationStack { TradeView() }
             }
+            Tab("Friends", systemImage: "person.2.fill") {
+                NavigationStack { FriendsView() }
+            }
             .badge(friendStore.pendingBadgeCount)
             Tab("Stats", systemImage: "chart.bar.fill") {
                 StatsView()

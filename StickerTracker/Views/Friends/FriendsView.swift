@@ -1,7 +1,8 @@
 import SwiftUI
 
-/// The Friends segment of the Trade tab: incoming/sent requests and the
-/// friend list. Trade visibility per friend arrives in a later phase.
+/// The Friends tab: incoming/sent requests and the friend list, with a
+/// search sheet for adding friends. The pending-request badge sits on the
+/// tab itself (see `RootTabView`).
 struct FriendsView: View {
     @Environment(AccountStore.self) private var account
     @Environment(FriendStore.self) private var friendStore
@@ -20,16 +21,17 @@ struct FriendsView: View {
                 ContentUnavailableView {
                     Label("Finish Your Profile", systemImage: "person.crop.circle.badge.plus")
                 } description: {
-                    Text("Pick a username in Settings so friends can find you.")
+                    Text("Pick a username on the Account tab so friends can find you.")
                 }
             case .signedOut:
                 ContentUnavailableView {
                     Label("Sign In to Add Friends", systemImage: "person.2")
                 } description: {
-                    Text("Sign in with Apple in Settings to add friends and see which stickers you can trade with each other.")
+                    Text("Sign in with Apple on the Account tab to add friends and see which stickers you can trade with each other.")
                 }
             }
         }
+        .navigationTitle("Friends")
         .toolbar {
             if account.profile != nil {
                 ToolbarItem(placement: .topBarTrailing) {

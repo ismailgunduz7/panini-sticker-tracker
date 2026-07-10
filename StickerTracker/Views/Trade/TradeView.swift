@@ -8,7 +8,7 @@ import VisionKit
 struct TradeView: View {
     @Environment(CollectionStore.self) private var store
 
-    private enum Mode: Hashable { case friends, myQR, scan }
+    private enum Mode: Hashable { case myQR, scan }
     private enum SaveStatus { case saved, failed }
 
     @State private var mode: Mode = .myQR
@@ -31,7 +31,6 @@ struct TradeView: View {
     var body: some View {
         VStack(spacing: 0) {
             Picker("Mode", selection: $mode) {
-                Text("Friends").tag(Mode.friends)
                 Text("My QR").tag(Mode.myQR)
                 Text("Scan").tag(Mode.scan)
             }
@@ -39,7 +38,6 @@ struct TradeView: View {
             .padding()
 
             switch mode {
-            case .friends: FriendsView()
             case .myQR: myQR
             case .scan: scanner
             }
@@ -50,8 +48,7 @@ struct TradeView: View {
         .onDisappear {
             // TabView keeps tab views alive, so the scanner is never
             // dismantled by a tab switch alone; leaving scan mode here is
-            // what actually releases the camera. Other modes are left as-is
-            // so a navigation push inside Friends doesn't lose the segment.
+            // what actually releases the camera.
             if mode == .scan { mode = .myQR }
         }
         .task { await requestCameraAccessIfNeeded() }

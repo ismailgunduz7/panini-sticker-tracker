@@ -116,8 +116,8 @@ Living backlog. Add new ideas under **Planned**; move items to **Completed** whe
 
 #### Friends
 
-- [x] Search users, send/accept/decline friend requests
-- [x] Friend list with pending-request badge
+- [x] Dedicated Friends tab (search, send/accept/decline requests, friend list)
+- [x] Pending-request badge on the Friends tab
 - [x] Tradable stickers between friends with privacy-aware collection read
 
 
@@ -220,10 +220,10 @@ Wire cross-store callbacks in `StickerTrackerApp.swift` (e.g. `onEntriesChanged`
 
 ### Navigation
 
-- Root: `TabView` in `RootTabView.swift` (Album, Trade, Stats, Account).
+- Root: `TabView` in `RootTabView.swift` (Album, Trade, Friends, Stats, Account) — five tabs, the iPhone limit before overflow into More.
 - Achievements is not a tab; it is pushed from the Stats toolbar (trophy icon).
 - Settings is not a tab; the non-account preferences live on `SettingsView`, pushed from a row on the Account page.
-- The Friends UI lives as a segment inside the Trade tab (`Friends | My QR | Scan`) — a sixth tab would overflow into More on iPhone. The pending-request badge sits on the Trade tab.
+- Friends is its own tab (search, requests, friend list); the pending-request badge (`friendStore.pendingBadgeCount`) sits on it. The Trade tab keeps the `My QR | Scan` segments.
 - Per-tab `NavigationStack` where needed.
 - Type-safe destinations: `navigationDestination(for: Country.self)`.
 - Sheets for scanning, friend search, trade results, profile setup.
