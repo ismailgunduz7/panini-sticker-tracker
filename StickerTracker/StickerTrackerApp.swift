@@ -45,6 +45,11 @@ struct StickerTrackerApp: App {
                 achievementStore.evaluate(entries: entries)
                 syncEngine.schedulePush()
             }
+            // A newly registered spare may open a trade for friends missing it.
+            store.onNewSpares = { [accountStore, friendStore] codes in
+                guard accountStore.profile != nil else { return }
+                friendStore.announceNewSpares(codes)
+            }
             accountStore.onSignedIn = { [store, syncEngine, friendStore, pushService] in
                 store.preservesResetTombstones = true
                 syncEngine.syncNow()

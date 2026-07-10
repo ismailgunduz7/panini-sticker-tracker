@@ -52,6 +52,8 @@ final class FriendStore {
     var pendingBadgeCount: Int { incomingRequests.count }
 
     @ObservationIgnored private let client: SupabaseClient
+    @ObservationIgnored private var pendingSpares: Set<String> = []
+    @ObservationIgnored private var announceTask: Task<Void, Never>?
 
     init(client: SupabaseClient) {
         self.client = client
@@ -98,6 +100,23 @@ final class FriendStore {
             hasLoaded = true
         } catch {
             // Offline or transient failure: keep whatever was shown before.
+        }
+    }
+
+    /// Buffer newly registered spares and, after a short debounce, tell the
+    /// server so accepted friends missing them get a "new trade" push. A scan
+    /// of many stickers thus becomes one call. Best-effort: offline (or signed
+    /// out) just fails silently.
+    func announceNewSpares(_ codes: [String]) {
+        pendingSpares.formUnion(codes)
+        announceTask?.cancel()
+        announceTask = Task {
+            try? await Task.sleep(for: .seconds(3))
+            guard !Task.isCancelled, !pendingSpares.isEmpty else { return }
+            struct Params: Encodable { let p_codes: [String] }
+            let batch = Array(pendingSpares)
+            pendingSpares.removeAll()
+            _ = try? await client.rpc("announce_new_spares", params: Params(p_codes: batch)).execute()
         }
     }
 

@@ -14,6 +14,11 @@ final class CollectionStore {
     /// can re-evaluate. Not invoked during `load()`.
     @ObservationIgnored var onEntriesChanged: (([String: CollectionEntry]) -> Void)?
 
+    /// Called when a sticker's first spare is registered (duplicate count goes
+    /// 0 -> 1) via an interactive add, so a "new trade" push can be offered to
+    /// friends missing it. Never fired during load/sync/reset.
+    @ObservationIgnored var onNewSpares: (([String]) -> Void)?
+
     /// While an account is linked, a full reset must survive sync: rows are
     /// zeroed instead of deleted, so the reset wins over the server copy
     /// rather than the old data merging back on the next pull.
@@ -59,12 +64,17 @@ final class CollectionStore {
     }
 
     func adjustDuplicates(_ code: String, by delta: Int) {
+        let previousCount = entries[code]?.duplicateCount ?? 0
         var entry = entries[code] ?? CollectionEntry(code: code, isOwned: false, duplicateCount: 0, updatedAt: .now)
         entry.duplicateCount = max(0, entry.duplicateCount + delta)
         // Having a duplicate implies owning the sticker.
         if entry.duplicateCount > 0 { entry.isOwned = true }
         entry.updatedAt = .now
         persist(entry)
+        // First spare for this sticker: a new trade may now exist for friends.
+        if previousCount == 0 && entry.duplicateCount > 0 {
+            onNewSpares?([code])
+        }
     }
 
     func setOwned(_ codes: [String], owned: Bool) {

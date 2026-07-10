@@ -120,6 +120,7 @@ Living backlog. Add new ideas under **Planned**; move items to **Completed** whe
 - [x] Pending-request badge on the Friends tab
 - [x] Tradable stickers between friends with privacy-aware collection read
 - [x] Push notifications for friend requests and acceptances (APNs via Supabase Edge Function)
+- [x] Push notification to friends when a newly registered spare opens a new trade
 
 
 
@@ -137,6 +138,7 @@ Living backlog. Add new ideas under **Planned**; move items to **Completed** whe
 
 #### Friends & sync
 - [ ] Realtime friend collection updates via Supabase Realtime (live refresh while a friend detail screen is open)
+- [ ] Queue offline new-spare transitions and send the new-trade notification once back online
 - [ ] Block users (beyond the current decline-blocks-re-request behavior)
 - [ ] Rate limiting / spam protection for username search and friend requests
 
