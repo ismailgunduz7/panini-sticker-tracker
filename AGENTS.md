@@ -22,6 +22,83 @@ The Xcode project uses `PBXFileSystemSynchronizedRootGroup` — files added unde
 
 ---
 
+## Feature checklist
+
+Living backlog. Add new ideas under **Planned**; move items to **Completed** when shipped.
+
+- Use `- [ ]` for planned, `- [x]` for completed.
+- One feature per line; keep descriptions short.
+- Group related items under subheadings when the list grows.
+
+### Completed
+
+#### Album & collection
+- [x] Static album definition — 48 countries, FWC, 00, Coca-Cola (992 stickers)
+- [x] Home screen with themed country cards, search, and sort (album order / name / completion)
+- [x] Persisted sort field and direction toggle
+- [x] Country detail with printed album page layout (3×4 grid)
+- [x] Swipe navigation between countries in detail view
+- [x] Special sections (FWC, 00, Coca-Cola) with 5-column grid
+- [x] Tap to toggle ownership; context menu to add/remove duplicates
+- [x] SwiftData persistence behind a repository protocol
+- [x] Offline-first usage without an account
+
+#### Stats
+- [x] Total progress, group bars, duplicate count
+- [x] Most/least collected country, closest page, completed pages
+- [x] Toggle to exclude 00 and Coca-Cola from stats
+- [x] Federation logo and team photo breakdown (collected vs missing countries)
+
+#### Achievements
+- [x] Achievement system — first stickers, completions, milestones, duplicate hoarding
+- [x] Toast and confetti on unlock; silent backfill on first launch
+- [x] Revoke achievements when their condition no longer holds
+- [x] Achievements tab
+
+#### Duplicates
+- [x] Duplicates page accessible from home toolbar
+- [x] Independent sort field and direction, persisted
+- [x] Duplicate count steppers and trash-to-remove
+- [x] Instructive empty state
+- [x] Add duplicates directly from the duplicates page
+
+#### Scanning
+- [x] Live camera scanner for stickers and duplicates
+- [x] OCR confusable-character handling and settle-window commit logic
+
+#### Sharing
+- [x] Share owned, missing, or duplicate stickers as plain text
+
+#### Trading
+- [x] QR trading — encode/decode collection payload
+- [x] Scan QR from camera; import QR from Photos; save QR to Photos
+- [x] Share QR image from Trade tab
+- [x] Deep link handling (`stickertracker://trade`)
+
+#### Account & sync
+- [x] Sign in with Apple and profile setup (username, display name)
+- [x] Supabase sync — offline-first, last-write-wins
+- [x] Full-album sharing privacy toggle
+- [x] Sign out and account deletion
+
+#### Friends
+- [x] Search users, send/accept/decline friend requests
+- [x] Friend list with pending-request badge
+- [x] Tradable stickers between friends with privacy-aware collection read
+
+#### Settings & polish
+- [x] Appearance picker (system / light / dark)
+- [x] Sort settings for home and duplicates pages
+- [x] Reset all data
+- [x] English and Turkish localization
+- [x] Portrait-only orientation and app icon
+
+### Planned
+
+<!-- Add new ideas here as `- [ ] feature description`. Move to Completed when shipped. -->
+
+---
+
 ## Directory structure
 
 ```
