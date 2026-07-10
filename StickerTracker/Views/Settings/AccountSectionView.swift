@@ -7,7 +7,6 @@ struct AccountSectionView: View {
     @Environment(AccountStore.self) private var account
     @Environment(\.colorScheme) private var colorScheme
     @State private var showingProfileSetup = false
-    @State private var showingSignOutConfirmation = false
     @State private var showingDeleteConfirmation = false
     @State private var hasAutoOpenedSetup = false
     @State private var editingDisplayName = ""
@@ -75,19 +74,6 @@ struct AccountSectionView: View {
                     Text("Your friends see this name alongside your username.")
                 }
                 Toggle("Share Full Album with Friends", isOn: shareFullAlbumBinding(profile))
-                Button("Sign Out") {
-                    showingSignOutConfirmation = true
-                }
-                .confirmationDialog(
-                    Text("Sign out? Your album stays on this device, and friends will no longer see your collection."),
-                    isPresented: $showingSignOutConfirmation,
-                    titleVisibility: .visible
-                ) {
-                    Button("Sign Out", role: .destructive) {
-                        Task { await account.signOut() }
-                    }
-                    Button("Cancel", role: .cancel) {}
-                }
                 Button("Delete Account", role: .destructive) {
                     showingDeleteConfirmation = true
                 }
