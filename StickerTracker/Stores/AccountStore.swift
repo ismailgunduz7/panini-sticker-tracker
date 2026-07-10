@@ -188,6 +188,23 @@ final class AccountStore {
         await refreshProfile()
     }
 
+    /// Update the profile's display name (the username stays fixed after
+    /// claiming). Direct own-row update, like `setShareFullAlbum`.
+    func updateDisplayName(_ name: String) async {
+        guard var profile, let userId = try? await client.auth.session.user.id else { return }
+        let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        do {
+            try await client.from("profiles")
+                .update(["display_name": trimmed])
+                .eq("id", value: userId)
+                .execute()
+            profile.displayName = trimmed
+            phase = .signedIn(profile)
+        } catch {
+            errorMessage = String(localized: "Could not update your name. Check your connection.")
+        }
+    }
+
     func setShareFullAlbum(_ share: Bool) async {
         guard var profile, let userId = try? await client.auth.session.user.id else { return }
         do {

@@ -10,6 +10,8 @@ struct AccountSectionView: View {
     @State private var showingSignOutConfirmation = false
     @State private var showingDeleteConfirmation = false
     @State private var hasAutoOpenedSetup = false
+    @State private var editingDisplayName = ""
+    @State private var showingNameEditor = false
 
     var body: some View {
         Section {
@@ -51,8 +53,26 @@ struct AccountSectionView: View {
                 }
             case .signedIn(let profile):
                 LabeledContent("Username", value: "@\(profile.username)")
-                if !profile.displayName.isEmpty {
-                    LabeledContent("Name", value: profile.displayName)
+                LabeledContent("Name") {
+                    HStack(spacing: 8) {
+                        Text(profile.displayName.isEmpty ? String(localized: "Not set") : profile.displayName)
+                            .foregroundStyle(.secondary)
+                        Button {
+                            editingDisplayName = profile.displayName
+                            showingNameEditor = true
+                        } label: {
+                            Image(systemName: "pencil")
+                        }
+                        .buttonStyle(.borderless)
+                    }
+                }
+                .alert("Edit Name", isPresented: $showingNameEditor) {
+                    TextField("Display Name", text: $editingDisplayName)
+                        .textInputAutocapitalization(.words)
+                    Button("Cancel", role: .cancel) {}
+                    Button("Save") { commitDisplayName(current: profile.displayName) }
+                } message: {
+                    Text("Your friends see this name alongside your username.")
                 }
                 Toggle("Share Full Album with Friends", isOn: shareFullAlbumBinding(profile))
                 Button("Sign Out") {
@@ -103,6 +123,11 @@ struct AccountSectionView: View {
         case .signedIn:
             Text("When full album sharing is off, friends only see the stickers you can trade with each other.")
         }
+    }
+
+    private func commitDisplayName(current: String) {
+        guard editingDisplayName.trimmingCharacters(in: .whitespacesAndNewlines) != current else { return }
+        Task { await account.updateDisplayName(editingDisplayName) }
     }
 
     private func shareFullAlbumBinding(_ profile: UserProfile) -> Binding<Bool> {

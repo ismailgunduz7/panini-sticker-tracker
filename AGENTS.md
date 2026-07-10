@@ -107,6 +107,7 @@ Living backlog. Add new ideas under **Planned**; move items to **Completed** whe
 #### Account & sync
 
 - [x] Sign in with Apple and profile setup (username, display name)
+- [x] Edit display name from the Account page (username stays fixed)
 - [x] Supabase sync — offline-first, last-write-wins
 - [x] Full-album sharing privacy toggle
 - [x] Sign out and account deletion
