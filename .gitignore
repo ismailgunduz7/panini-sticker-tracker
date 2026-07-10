@@ -1,0 +1,5 @@
+# APNs auth key — never commit
+*.p8
+
+# Supabase CLI local state (linked project, etc.)
+supabase/.temp/
