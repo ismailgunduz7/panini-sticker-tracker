@@ -7,7 +7,7 @@
 
 create extension if not exists pg_net;
 
-create function public.notify_user(p_user uuid, p_kind text, p_actor text)
+create or replace function public.notify_user(p_user uuid, p_kind text, p_actor text)
 returns void
 language plpgsql
 security definer
