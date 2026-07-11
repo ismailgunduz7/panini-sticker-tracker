@@ -56,6 +56,9 @@ struct StickerScanSheet: View {
         .sheet(isPresented: $showingRegisterInfo) {
             registerInfoSheet
         }
+        // Keep the display awake while scanning so it never dims mid-scan.
+        .onAppear { UIApplication.shared.isIdleTimerDisabled = true }
+        .onDisappear { UIApplication.shared.isIdleTimerDisabled = false }
     }
 
     /// Explains what the Register Duplicates toggle does in each state.
