@@ -86,6 +86,8 @@ Living backlog. Add new ideas under **Planned**; move items to **Completed** whe
 
 - [x] Live camera scanner for stickers and duplicates
 - [x] OCR confusable-character handling and settle-window commit logic
+- [x] Register Duplicates info modal explaining on/off behavior
+- [x] Keep the display awake while the scan sheet is open
 
 
 
