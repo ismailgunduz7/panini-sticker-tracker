@@ -50,7 +50,7 @@ enum AlbumDefinition {
         Country(code: "BEL", name: "Belgium", group: "G", startPage: 58, theme: .init(primaryHex: "C8102E", secondaryHex: "FDDA24")),
         Country(code: "EGY", name: "Egypt", group: "G", startPage: 60, theme: .init(primaryHex: "CE1126", secondaryHex: "8C0D1C")),
         Country(code: "IRN", name: "IR Iran", group: "G", startPage: 62, theme: .init(primaryHex: "239F40", secondaryHex: "DA0000")),
-        Country(code: "NZL", name: "New Zealand", group: "G", startPage: 64, theme: .init(primaryHex: "1A1A1A", secondaryHex: "4A4A4A")),
+        Country(code: "NZL", name: "New Zealand", group: "G", startPage: 64, theme: .init(primaryHex: "00247D", secondaryHex: "CC142B")),
         // Group H
         Country(code: "ESP", name: "Spain", group: "H", startPage: 66, theme: .init(primaryHex: "AA151B", secondaryHex: "F1BF00")),
         Country(code: "CPV", name: "Cabo Verde", group: "H", startPage: 68, theme: .init(primaryHex: "003893", secondaryHex: "F7D116")),
