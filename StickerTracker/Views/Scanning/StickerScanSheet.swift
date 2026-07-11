@@ -18,6 +18,8 @@ struct StickerScanSheet: View {
     /// confirmation chip lingers instead of vanishing the moment the camera moves.
     @State private var recentlyAddedCode: String?
     @State private var lingerTask: Task<Void, Never>?
+    /// Whether the "Register Duplicates" explanation modal is shown.
+    @State private var showingRegisterInfo = false
 
     private var scannerSupported: Bool {
         DataScannerViewController.isSupported && DataScannerViewController.isAvailable
@@ -51,6 +53,56 @@ struct StickerScanSheet: View {
             }
         }
         .task { await requestCameraAccessIfNeeded() }
+        .sheet(isPresented: $showingRegisterInfo) {
+            registerInfoSheet
+        }
+    }
+
+    /// Explains what the Register Duplicates toggle does in each state.
+    private var registerInfoSheet: some View {
+        NavigationStack {
+            List {
+                Section {
+                    Label {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("On")
+                                .font(.headline)
+                            Text("Each copy you scan counts toward your collection. The first copy of a sticker you don't have yet fills its album slot; any extra copies — or copies of a sticker you already own — are added as duplicates you can trade.")
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                        }
+                    } icon: {
+                        Image(systemName: "square.on.square.fill")
+                            .foregroundStyle(.green)
+                    }
+                    .labelStyle(.titleAndIcon)
+                }
+
+                Section {
+                    Label {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Off")
+                                .font(.headline)
+                            Text("Scanned stickers are only marked as owned in your album. Extra copies are ignored, so nothing is added to your duplicates. Use this when you're just filling in stickers you're missing.")
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                        }
+                    } icon: {
+                        Image(systemName: "checkmark.square.fill")
+                            .foregroundStyle(.secondary)
+                    }
+                    .labelStyle(.titleAndIcon)
+                }
+            }
+            .navigationTitle("Register Duplicates")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") { showingRegisterInfo = false }
+                }
+            }
+        }
+        .presentationDetents([.medium])
     }
 
     @ViewBuilder
@@ -155,9 +207,21 @@ struct StickerScanSheet: View {
 
     private var controls: some View {
         VStack(spacing: 0) {
-            Toggle("Register Duplicates", isOn: $session.registerDuplicates)
-                .padding(.horizontal)
-                .padding(.vertical, 12)
+            Toggle(isOn: $session.registerDuplicates) {
+                HStack(spacing: 6) {
+                    Text("Register Duplicates")
+                    Button {
+                        showingRegisterInfo = true
+                    } label: {
+                        Image(systemName: "info.circle")
+                            .foregroundStyle(.secondary)
+                    }
+                    .buttonStyle(.borderless)
+                    .accessibilityLabel("What does Register Duplicates do?")
+                }
+            }
+            .padding(.horizontal)
+            .padding(.vertical, 12)
 
             Divider()
 
