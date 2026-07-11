@@ -15,8 +15,9 @@ struct ScannedItem: Identifiable, Hashable {
 final class ScanSession {
     private(set) var items: [ScannedItem] = []
 
-    /// When true, each scanned sticker is registered as a duplicate (which also
-    /// implies ownership). When false, stickers are only marked as owned.
+    /// When true, scanned copies count toward spares: the first copy of a sticker
+    /// you don't own fills the album, and any copies beyond the album slot are
+    /// registered as duplicates. When false, stickers are only marked as owned.
     var registerDuplicates = true
 
     /// Adds a freshly scanned code. Codes already in the session are ignored so
@@ -51,7 +52,7 @@ final class ScanSession {
     func apply(to store: CollectionStore) {
         for item in items {
             if registerDuplicates {
-                store.adjustDuplicates(item.code, by: item.count)
+                store.registerScannedCopies(item.code, copies: item.count)
             } else {
                 store.setOwned([item.code], owned: true)
             }

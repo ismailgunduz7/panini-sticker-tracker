@@ -77,6 +77,20 @@ final class CollectionStore {
         }
     }
 
+    /// Registers `copies` physical copies of a scanned sticker. One copy fills the
+    /// album slot; only the copies beyond that become spares. So the first copy of
+    /// a sticker you don't yet own just marks it owned (no duplicate), and any
+    /// extra copies — or copies of a sticker you already own — become duplicates.
+    func registerScannedCopies(_ code: String, copies: Int) {
+        guard copies > 0 else { return }
+        let spareDelta = isOwned(code) ? copies : copies - 1
+        if spareDelta > 0 {
+            adjustDuplicates(code, by: spareDelta) // also marks the sticker owned
+        } else {
+            setOwned([code], owned: true) // first copy of a new sticker: album only
+        }
+    }
+
     func setOwned(_ codes: [String], owned: Bool) {
         for code in codes where isOwned(code) != owned {
             var entry = entries[code] ?? CollectionEntry(code: code, isOwned: false, duplicateCount: 0, updatedAt: .now)
