@@ -23,7 +23,7 @@ enum TradeMatch {
 
     /// Buckets a set of codes into album-ordered groups (World Cup, each country,
     /// Special, Coca-Cola), keeping each group's in-album sticker order.
-    private static func grouped(_ codes: Set<String>) -> [TradeGroup] {
+    static func grouped(_ codes: Set<String>) -> [TradeGroup] {
         var result: [TradeGroup] = []
 
         func add(id: String, title: String, candidates: [String]) {
